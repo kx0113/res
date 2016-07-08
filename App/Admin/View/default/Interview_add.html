@@ -1,0 +1,306 @@
+
+<include file="common:header"/>
+
+	<body>
+	<link rel="stylesheet" href="__PUBLIC__/Components/bootstrap-fileinput-master/css/fileinput.min.css" />
+	<script src="__PUBLIC__/Components/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+		 
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+
+
+				  
+
+				<div class="main-content">
+					 
+<style>
+.widget-toolbar {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 37px;
+    float: none;
+    position: relative;
+}
+					</style>
+					<div class="page-content">
+						 <div class="row">
+							 
+				<div class="col-xs-12">
+							 
+										<div class="widget-box transparent" id="recent-box">
+											<div class="widget-header">
+												 
+
+												<div class="widget-toolbar no-border">
+													<ul class="nav nav-tabs" id="recent-tab">
+																											
+														<li>
+															<a  href="{:U(CONTROLLER_NAME . '/index',array('class'=>$getclass))}">
+																<if condition="$getclass eq '1' ">
+																	面试通过列表
+																	<elseif condition="$getclass eq 2"/>到岗人员列表</if>
+															</a>
+														</li>
+														<if condition="$list.interview_id eq '' ">
+														<li class="active">
+															<a href="{:U(CONTROLLER_NAME . '/add',array('class'=>$getclass))}">添加</a>
+														</li>
+														<else />
+														<li class="active">
+															<a href="{:U(CONTROLLER_NAME . '/editData',array('class'=>$getclass,'interview_id'=>$list['interview_id']))}">[{$list.interview_name}]-编辑</a>
+														</li>
+														</if>
+
+														 
+													</ul>
+												</div>
+											</div>
+											
+											</div>
+											<br>
+					<form role="form" id="form1" method="post" enctype="multipart/form-data" action="">
+					<div class="form-group">
+						<label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">姓名</label>
+						<input type="hidden" name="interview_id" id="interview_id" value="{$list.interview_id}" />
+						<div class="col-sm-9">
+							<input value="{$list.interview_name}" type="text" id="interview_name" placeholder="请输入姓名" name="interview_name" class="col-xs-10 col-sm-5" />
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+					<!-- station_id -->
+
+					<div class="form-group">
+						<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+							   for="form-field-1">申请职位</label>
+						<div class="col-sm-9">
+							<select name="station_id">
+								<volist name="station_list" id="stlist">
+									<option
+									<if condition="$stlist['station_id'] eq $list['station_id']">selected = selected</if>
+									value="{$stlist.station_id}">{$stlist.station_name}</option>
+								</volist>
+							</select>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<!-- interview_entry_time -->
+					<div class="form-group">
+						<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+							   for="form-field-1">入职时间</label>
+						<div class="col-sm-9">
+							<div style="padding:0;" class="input-group date  col-md-5" data-date=""
+								 data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+								 data-link-format="yyyy-mm-dd">
+								<input class="form-control form_date" placeholder="请选择入职时间"
+									   size="16" type="text" name="interview_entry_time"
+								<if condition="$list.interview_entry_time neq '' ">
+									value="{$list.interview_entry_time|date="Y-m-d",###}"
+								</if>
+								>
+    <span class="input-group-addon"><span
+			class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+			class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+						<if condition="$getclass eq '1' ">
+					<div class="form-group">
+						<label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">待遇</label>
+						<div class="col-sm-9">
+							<input value="{$list.interview_salary}" type="text" id="interview_salary"
+								   placeholder="请输入待遇" name="interview_salary" class="col-xs-10 col-sm-5" />
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+							</if>
+					<div class="form-group">
+						<label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">联系电话</label>
+						<div class="col-sm-9">
+							<input value="{$list.interview_tel}" type="text" id="name"
+								   placeholder="请输入联系电话" id="interview_tel" name="interview_tel" class="col-xs-10 col-sm-5" />
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+						<div class="form-group">
+							<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+								   for="form-field-1">备注</label>
+							<div class="col-sm-9">
+<textarea placeholder="请输入备注" rows="5" id="interview_describe"
+		  name="interview_describe" class="col-xs-10 col-sm-5">{$list.interview_describe}</textarea>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<if condition="$getclass eq '1' ">
+							<div class="form-group">
+							<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+								   for="form-field-1">上传图片</label>
+							<div class="col-sm-9">
+								<?php if(empty($list['img'])){ ?>
+										<input type="file" name="file" />
+										<span  style="color:#ccc">
+											<span style="color:#f00">*</span>
+											后缀名仅限&nbsp; [&nbsp;.jpg&nbsp;]&nbsp;[&nbsp;.png&nbsp;]&nbsp;两种格式
+										</span>
+								 <?php }else{ ?>
+										<input type="file" name="file" class="file_show" style="display: none;"/>
+										<input type="hidden" name="delpath" id="delpath" value="" />
+										<a id='look_img' onclick="headshow('{$interviewpath}{$list.img}');" class="btn-sm btn btn-primary">点击查看</a>
+										<a id='del_img' onclick="AjaxdelImgPath('{$list.interview_id}');" class="btn-sm btn btn-pink">删除重新上传</a>
+										<span class="file_show"  style="color:#ccc;display: none;" >
+											<span style="color:#f00">*</span>
+											后缀名仅限&nbsp; [&nbsp;.jpg&nbsp;]&nbsp;[&nbsp;.png&nbsp;]&nbsp;两种格式
+										</span>
+								<?php } ?>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+
+
+						</if>
+
+									 
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+										
+										<if condition="$list.id eq '' "> 
+												 <a class="sub_f btn btn-info" href="javascript:$('form').submit()" name="on"><i class="icon-ok bigger-110" ></i>提交</a>	 	 
+														<else />
+													 <a class="sub_f btn btn-info" href="javascript:$('form').submit()" name="on"><i class="icon-ok bigger-110" ></i>修改</a> 
+														</if>
+
+
+											<if condition="$list.id eq '' ">
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>	 </if>
+										</div><div style="clear:both;"></div>
+									</div>
+									</form>
+											</div>
+									 
+							 
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+				<script>
+					function AjaxdelImgPath(id){
+						if(confirm('确定要删除！')){
+							$('#delpath').val(1);
+							$(".file_show").show();
+							$("#look_img").hide();
+							$("#del_img").hide();
+							alert('删除成功！');
+						}
+					}
+					$("#input-dim-1").fileinput({
+						fileSingle: '单个文件',
+						filePlural: '多个文件',
+						browseLabel: '选择文件 &hellip;',
+						removeLabel: '删除文件',
+						removeTitle: '删除选中文件',
+						cancelLabel: '取消',
+						cancelTitle: '取消上传',
+						uploadLabel: '上传',
+						uploadTitle: '上传选中文件',
+						uploadUrl: false,
+						initialCaption: "请选择您的照片",
+						dropZoneTitle: '请选择您的照片',
+						msgFilesTooMany: '选择上传的文件数量 <b>({n})</b> 超过最大允许的极限 <b>{m}</b>.请重试您的上传!',
+						uploadAsync: true,
+						allowedFileExtensions: ["jpg", "png", "gif"],
+						minImageWidth: 50,
+						maxFileCount: 1,
+						showUpload:false,
+						minImageHeight: 50
+					});
+					$("#input-dim-1").on("fileuploaded", function(event, data) {
+						alert(data.response["res"]);
+					});
+				</script>
+				<script>
+
+					$("#file01").click(function(){
+						var objUrl = getObjectURL(this.files[0]) ;
+						console.log("objUrl = "+objUrl) ;
+						if (objUrl) {
+							$("#img01").show();
+							$("#img01").attr("src", objUrl) ;
+						}
+					}) ;
+
+					//建立一個可存取到該file的url
+					function getObjectURL(file) {
+						var url = null ;
+						if (window.createObjectURL!=undefined) { // basic
+							url = window.createObjectURL(file) ;
+						} else if (window.URL!=undefined) { // mozilla(firefox)
+							url = window.URL.createObjectURL(file) ;
+						} else if (window.webkitURL!=undefined) { // webkit or chrome
+							url = window.webkitURL.createObjectURL(file) ;
+						}
+						return url ;
+					}
+					function headshow(obj){
+						layer.open({
+							type: 1,
+							title: false, //不显示标题
+							shadeClose: true, //开启遮罩关闭
+							skin: 'layui-layer-rim', //加上边框
+							area: ['60%', '100%'], //宽高
+							shade: [0.1,'#fff'], //0.1透明度的白色背景
+							content: '<img src="'+obj+'" width="100%" height="100%" />'
+						});
+					}
+		<if condition="$list.interview_id eq ''">
+			$(".form_date").val(now);
+		</if>
+					$().ready(function() {
+						// validate the comment form when it is submitted
+						$("#commentForm").validate();
+						// validate signup form on keyup and submit
+						$("#form1").validate({
+							rules: {
+								interview_name: "required",
+								interview_tel: "required",
+								interview_salary: {
+									required: true,
+								},
+							},
+							messages: {
+								interview_name: "姓名不能为空",
+								interview_tel: "联系电话不能为空",
+								interview_salary: "待遇不能为空",
+							}
+						});
+						$().ready(function() {
+							$("form").validate({
+								submitHandler:function(form){
+									//alert("提交事件!");
+									form.submit();
+								}
+							});
+						});
+					});
+				</script>
+			</div><!-- /.main-container-inner -->
+
+
+		</div>
+
+		<include file="common:footer"/>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+
+	</body>
+</html>

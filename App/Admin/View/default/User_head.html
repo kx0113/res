@@ -1,0 +1,269 @@
+
+<include file="common:header"/>
+	<body> 
+ 	 
+		<div class="navbar navbar-default" id="navbar">
+			 <include file="common:head"/>
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+
+
+				  <include file="common:nav"/>
+
+				<div class="main-content">
+					 
+<style>
+.widget-toolbar {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 37px;
+    float: none;
+    position: relative;
+}
+					</style>
+					<div class="page-content">
+						 <div class="row">
+							 
+				<div class="col-xs-12">
+							 
+										<div class="widget-box transparent" id="recent-box">
+											<div class="widget-header">
+												 
+
+												<div class="widget-toolbar no-border">
+													<ul class="nav nav-tabs" id="recent-tab">
+																											
+														<li>
+															<a  href="{:U(CONTROLLER_NAME . '/index')}">客户列表</a>
+														</li>
+														
+														
+														<li class="active">
+															<a href="#">头像修改</a>
+														</li>
+														
+
+														 
+													</ul>
+												</div>
+											</div>
+											
+											</div>
+											<br>
+										 
+											<form role="form" id="form1"	method="post" enctype="multipart/form-data" action="__URL__/head">
+ <input type="hidden" value="change" name="change">
+  <label class="col-sm-3 control-label no-padding-right" for="form-field-1" style="text-align:right">头像</label>
+  <input type="hidden" name="id" id="id" value="{$list.id}" /> 
+													 <div class="col-sm-9">
+<div class="" style="width:300px;">
+				
+	 <div id="upload_zizhi" style="padding: 0; cursor: pointer;"
+								class="upload"></div>
+							<div id="imgdiv_zizhi" style=" padding: 0"
+								class="upload">
+
+								 
+									<img id="imgShow_zizhi" src="{$list.head}" width="100" height="100">
+								 
+
+ <div id="cancel_zizhi"
+									style="width: 50px; cursor: pointer">
+
+								</div>
+								<input type="hidden" id="ifuploadback_zizhi"
+									name="ifuploadback_zizhi" value="0" />
+
+							</div>
+						 
+<div class=""> <p>支持JPG、PNG、BMP、GIF格式</p> </div>
+					 
+					<div style="background:url(__PUBLIC__/img/xuanze.png) no-repeat; width: 200px; margin: 0;">
+						<input type="file" id="certificate" name="certificate"
+							style="height: 44px; width: 113px; filter: alpha(opacity : 0); opacity: 0; cursor: pointer;"
+							onblur="checknewpaaa()" />
+
+					</div>
+				</div>	</div>
+				
+				<div style="clear:both;"></div>
+				<br>
+
+				  <div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+										 <a class="sub_f btn btn-info" href="javascript:$('form').submit()" name="on"><i class="icon-ok bigger-110" ></i>提交</a>
+									 </div>
+									</div>
+				  </form> 	</div>
+									 
+							 
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				  
+			</div><!-- /.main-container-inner -->
+
+
+		</div> 
+	<script type="text/javascript">
+		$(function() {
+
+			new uploadPreview({
+				UpBtn : "certificate",
+				DivShow : "imgdiv_zizhi",
+				ImgShow : "imgShow_zizhi"
+			});
+
+			$("#certificate").change(function() {
+				$("#imgdiv_zizhi").show();
+				$("#upload_zizhi").hide();
+				$("#ifuploadback_zizhi").val("1");
+			});
+
+			$("#cancel_zizhi").click(function() {
+				$("#imgdiv_zizhi").hide();
+				$("#upload_zizhi").show();
+				$("#ifuploadback_zizhi").val("0");
+			});
+
+			 
+		   	  $(".bottom2").next().hide();
+			  $(".user_left>ul>li").eq(0).removeClass("a");
+			  $(".user_left>ul>li").eq(5).addClass("a");
+
+		});
+	</script>
+		<script>	
+		$('.sub_ffff').click(function(){
+			var status = 1;
+		 $.ajax({
+		     url:"{:u(CONTROLLER_NAME . '/head')}",
+		     type:"POST",
+		     dataType:"json",
+		     data:$("form").serialize()+"&status="+status,
+		     success:function(res){
+		   	 if(res.result == 'success'){
+		   			alert('suc');
+		  		}
+		   	 if(res.result == 'error'){
+		   		alert('err');
+		  	    }
+		     }
+		 	 }); 
+		});
+		 //检测旧密码是否正确
+		$('#old_password').change(function(){
+			    var old_password = $("#old_password").val();
+				var id = $('#id').val();
+				var data = "id="+id+"&old_password="+old_password;
+				 $.ajax({
+				     url:"{:u(CONTROLLER_NAME . '/check_old_password')}",
+				     type:"POST",
+				     dataType:"json",
+				     data:data,
+				     success:function(res){
+				   	 if(res.result == 'success'){
+				    	 toastr.success("旧密码正确", opts);
+				    	 $('#old_password').attr('data-mes','suc');
+				    	 $('#fieldset').prop({disabled: false});
+				  		}
+				   	 if(res.result == 'error'){
+				  		toastr.error("旧密码不正确", opts);
+				  		 $('#fieldset').prop({disabled: true});
+				  	    }
+				     }
+				  });
+		});
+		 //修改密码
+		$('.save_password').click(function(){
+			var confirm_password = $('#confirm_password').attr('aria-invalid');
+			var password = $('#password').attr('aria-invalid');
+			if(confirm_password == 'false' && password == 'false'){
+				var ord_data_mes = $('#old_password').attr('data-mes');
+				 if(ord_data_mes == 'suc'){
+				  var old_password = $("#old_password").val();
+				  var password = $("#password").val();
+				  if(old_password == password){
+					  toastr.error("新密码与旧密码不能相同", opts);
+					  return false;
+				  }else{
+					   var id = $('#id').val();
+					   var data = "id="+id+"&password="+password;
+					  $.ajax({
+					     url:"{:u(CONTROLLER_NAME . '/save_password')}",
+					     type:"POST",
+					     dataType:"json",
+					     data:data,
+					     success:function(res){
+					    if(res.result == 'success'){
+					    	alert("密码修改成功，请使用新密码");
+					    	  location.href="{:u(CONTROLLER_NAME . '/index')}"
+					         }
+					    if(res.result == 'error'){
+					         toastr.error("密码修改失败，请重新修改", opts);
+					      }
+					     
+					     }
+					  });
+				  }
+			 }else{
+				 toastr.error("请检查密码", opts);
+			 }
+		}else{
+			toastr.error("请输入至少6个字符长度，相同的密码", opts);
+			return false;
+		}
+		})
+		  //设置新密码
+		$('.submit_save').click(function(){
+			//var name = $('#password').val();
+			//var namec = $('#confirm_password').val();
+			//var status = 1;
+			var confirm_password = $('#confirm_password').attr('aria-invalid');
+			var password = $('#password').attr('aria-invalid');
+			if(confirm_password == 'false' && password == 'false'){
+				 
+				var data = $(".form-horizontal").serialize();
+				//alert(data);
+					 $.ajax({
+					    url:"{:u(CONTROLLER_NAME . '/set_new_pass')}",
+					     type:"POST",
+					     dataType:"json",
+					     data:data,
+					     success:function(res){
+					    	if(res['result'] == "success"){
+					    		alert("密码设置成功");
+					    	    location.href="{:u(CONTROLLER_NAME . '/index')}"
+					       }
+					    	if(res['result'] == "error"){
+					    		toastr.success("两次密码不一致，操作失败", opts);
+					    	  
+					       }
+					     }
+					   });
+			}else{
+				toastr.error("请输入至少6个字符长度，相同的密码", opts);
+				 return false;
+			}
+			
+			})
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+	 
+
+		<include file="common:footer" />

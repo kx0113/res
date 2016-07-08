@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>人事部后台管理系统</title>
+
+	<meta name="description" content="User login page" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src='__PUBLIC__/Admin/assets/js/jquery-2.0.3.min.js'></script>
+	<!-- basic styles -->
+	<link rel="stylesheet" href="__PUBLIC__/Components/jquery-validation-1.14.0/demo/css/screen.css">
+	<script src="__PUBLIC__/Components/jquery-validation-1.14.0/dist/jquery.validate.js"></script>
+	<link href="__PUBLIC__/Admin/assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="__PUBLIC__/Admin/assets/css/font-awesome.min.css" />
+
+	<!--[if IE 7]>
+	<link rel="stylesheet" href="__PUBLIC__/Admin/assets/css/font-awesome-ie7.min.css" />
+	<![endif]-->
+
+	<!-- page specific plugin styles -->
+
+	<!-- fonts -->
+
+	<link rel="stylesheet" href="__PUBLIC__/Admin/assets/css/ace-fonts.css" />
+
+	<!-- ace styles -->
+
+	<link rel="stylesheet" href="__PUBLIC__/Admin/assets/css/ace.min.css" />
+	<link rel="stylesheet" href="__PUBLIC__/Admin/assets/css/ace-rtl.min.css" />
+
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="__PUBLIC__/Admin/assets/css/ace-ie.min.css" />
+	<![endif]-->
+
+	<!-- inline styles related to this page -->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<style>*{font-family: '微软雅黑';}</style>
+	<!--[if lt IE 9]>
+	<script src="__PUBLIC__/Admin/assets/js/html5shiv.js"></script>
+	<script src="__PUBLIC__/Admin/assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body class="login-layout">
+<div class="main-container">
+	<div class="main-content">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="login-container">
+					<div class="center">
+						<h1>
+							<i class="  icon-user" style="color:#69aa46;"></i>
+							<span class="red">人事部</span>
+							<span class="white">后台管理系统</span>
+						</h1>
+						<h4 class="blue">&copy; 青岛优美购商贸有限公司</h4>
+					</div>
+
+					<div class="space-6"></div>
+
+					<div class="position-relative">
+						<div id="login-box" class="login-box visible widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header blue lighter bigger">
+										<i class="icon-coffee green"></i>
+										请输入您的用户信息
+									</h4>
+
+									<div class="space-6"></div>
+
+									<form>
+										<fieldset>
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名" />
+															<i class="icon-user"></i>
+														</span>
+											</label>
+
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" name="password" id="password" placeholder="请输入密码" />
+															<i class="icon-lock"></i>
+														</span>
+											</label>
+
+											<div class="space"></div>
+
+											<div class="clearfix">
+												<button class="btn btn-sm pull-right btn-primary suc">
+													<i class="icon-key"></i>
+													登录</button>
+											</div>
+
+											<div class="space-4"></div>
+										</fieldset>
+									</form>
+
+
+
+
+								</div><!-- /widget-main -->
+
+								<div class="toolbar clearfix">
+									<div>
+
+									</div>
+
+									<div>
+										<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+											新用户注册
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+							</div><!-- /widget-body -->
+						</div><!-- /login-box -->
+
+						<div id="forgot-box" class="forgot-box widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header red lighter bigger">
+										<i class="icon-key"></i>
+										Retrieve Password
+									</h4>
+
+									<div class="space-6"></div>
+									<p>
+										Enter your email and to receive instructions
+									</p>
+
+									<form>
+										<fieldset>
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" placeholder="Email" />
+															<i class="icon-envelope"></i>
+														</span>
+											</label>
+
+											<div class="clearfix">
+												<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+													<i class="icon-lightbulb"></i>
+													Send Me!
+												</button>
+											</div>
+										</fieldset>
+									</form>
+								</div><!-- /widget-main -->
+
+								<div class="toolbar center">
+									<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+										Back to login
+										<i class="icon-arrow-right"></i>
+									</a>
+								</div>
+							</div><!-- /widget-body -->
+						</div><!-- /forgot-box -->
+
+						<div id="signup-box" class="signup-box widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header green lighter bigger">
+										<i class="icon-group blue"></i>
+										新用户注册
+									</h4>
+
+									<div class="space-6"></div>
+									<p> 请输入注册用户信息： </p>
+
+									<form role="form" id="register" >
+										<fieldset>
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" name="nickname" id="nickname" placeholder="请输入姓名" />
+															<i class="icon-edit"></i>
+														</span>
+											</label>
+
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" name="account" id="account"  placeholder="请输入用户名" />
+															<i class="icon-user"></i>
+														</span>
+											</label>
+
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" name="r_password" id="r_password"  placeholder="请输入用户密码" />
+															<i class="icon-lock"></i>
+														</span>
+											</label>
+
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" name="re_password" id="re_password"  placeholder="再次输入密码" />
+															<i class="icon-retweet"></i>
+														</span>
+											</label>
+											<div class="space-24"></div>
+											<div class="clearfix">
+												<button type="reset" class="width-30 pull-left btn btn-sm">
+													<i class="icon-refresh"></i>
+													重置
+												</button>
+												<a href="javascript:$('#register').submit();" class=" re_5 width-65 pull-right btn btn-sm btn-success">
+													注册
+													<i class="icon-arrow-right icon-on-right"></i>
+												</a>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+
+								<div class="toolbar center">
+									<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+										<i class="icon-arrow-left"></i>
+										返回登录页面
+									</a>
+								</div>
+								<script>
+									$().ready(function() {
+										// validate signup form on keyup and submit
+										$("#register").validate({
+											rules: {
+												nickname: {
+													required: true,
+													minlength: 2,
+												},
+												account: {
+													required: true,
+													minlength: 5,
+												},
+												r_password: {
+													required: true,
+													minlength: 6
+												},
+												re_password: {
+													required: true,
+													minlength: 6,
+													equalTo: "#r_password"
+												},
+											},
+											messages: {
+												nickname:{
+													required: "请输入姓名",
+													minlength: "姓名长度不能小于2个字符"
+												},
+												account:  {
+													required: "请输入用户名",
+													minlength: "密码长度不能小于 5 个字母"
+												},
+												r_password: {
+													required: "请输入密码",
+													minlength: "密码长度不能小于 6 个字母"
+												},
+												re_password: {
+													required: "请输入确认密码",
+													minlength: "密码长度不能小于 6 个字母",
+													equalTo: "两次密码输入不一致"
+												},
+											},
+											submitHandler:function(form){
+												//alert('提交');
+												AjaxResterInfo();
+											}
+										});
+
+									});
+
+									function AjaxResterInfo(){
+										var nickname = $('#nickname').val();
+										var account = $('#account').val();
+										var r_password = $('#r_password').val();
+										var re_password = $('#re_password').val();
+										if(r_password !== re_password){
+											alert('两次密码输入不一致！');
+											return false;
+										}else{
+											$('.re_5').attr('disabled',true);
+										}
+										var data = "nickname="+nickname+"&account="+account+"&r_password="+r_password+"&re_password="+re_password;
+										$.ajax({
+											url:"{:u(CONTROLLER_NAME . '/register')}",
+											type:"POST",
+											dataType:"json",
+											data:data,
+											success:function(res){
+												if(res.result == 'success'){
+													alert("操作成功,等待管理员审批！");
+													location.href="{:u('Login/login')}";
+												}
+												if(res.result == 'error'){
+													alert("操作失败,请稍后重试！");
+													location.reload();
+												}
+												if(res.result == 're_password'){
+													alert("两次密码输入不一致！");
+													$('.re_5').removeAttr('disabled');
+													//location.reload();
+												}
+												if(res.result == 'isfind'){
+													alert("已存在的用户名！");
+													$('.re_5').removeAttr('disabled');
+													//location.reload();
+												}
+											}
+										});
+									}
+								</script>
+							</div><!-- /widget-body -->
+						</div><!-- /signup-box -->
+					</div><!-- /position-relative -->
+				</div>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div>
+</div><!-- /.main-container -->
+
+<!-- basic scripts -->
+<script>
+
+	$('.suc').click(function(){
+
+		var $username = $('#username');
+		var $password = $('#password');
+		if (!$username.val()) {
+			alert('请输入用户名！');
+			return false;
+		}
+		if (!$password.val()) {
+			alert('请输入密码！');
+			return false;
+		}
+		var login_param = {
+			username: $username.val(),
+			password: $password.val()
+		};
+		$('.suc').attr('disabled',true);
+		$('.suc').html('正在登录...');
+		$.ajax({
+			url:"{:u(CONTROLLER_NAME . '/loginCheck')}",
+			type:"POST",
+			dataType:"json",
+			data:login_param,
+			success:function(res){
+				if(res.result == 'success'){
+					location.href="{:U('Index/index')}";
+					return false;
+				}
+				if(res.result == 'usernull'){
+					$('.suc').removeAttr('disabled',true);
+					alert("没有此用户！");
+					$('.suc').html('登录');
+					return false;
+				}
+				if(res.result == 'error'){
+					$('.suc').removeAttr('disabled',true);
+					$('.suc').html('登录');
+					alert("密码错误！");
+					return false;
+				}
+			}
+		});
+		return false;
+
+	})
+</script>
+<!--[if !IE]> -->
+
+<script type="text/javascript">
+
+	window.jQuery || document.write("<script src='__PUBLIC__/Admin/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+</script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+	window.jQuery || document.write("<script src='__PUBLIC__/Admin/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+<script type="text/javascript">
+	if("ontouchend" in document) document.write("<script src='__PUBLIC__/Admin/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+	function show_box(id) {
+		jQuery('.widget-box.visible').removeClass('visible');
+		jQuery('#'+id).addClass('visible');
+	}
+</script>
+</body>
+</html>

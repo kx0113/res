@@ -1,0 +1,243 @@
+<include file="Common:head" />
+<body class="page-body">
+ 
+<div class="page-container">
+<style>
+.sort_1{
+	float:left;
+	margin:0 10px 0 0px;
+	width:60px; 
+	text-align:center;
+}
+.sort_6{
+	float:left;
+	margin:0 10px 0 0px;
+	width:200px; 
+	text-align:center;
+}
+.sort_2{
+	
+	float:left;
+	margin:0 10px 0 0px;
+	width:200px;
+}
+.sort_3{
+	float:left;
+	margin:0 10px 0 0px;
+	width:150px;
+}
+.sort_4{
+	float:left;
+	margin:0 10px 0 0px;
+	width:150px;
+}
+.sort_5{
+	width:70px;
+	float:left;
+	margin:0 10px 0 0px;
+}
+.sort_7{
+	 float:left;margin:0 10px 0 0px;width:150px; text-align:center; 
+}
+.sort_8{
+	float:left;margin:0 10px 0 0px;width:70px; text-align:center;
+}
+ .append_div1{
+	width:200px;
+	height:100px;
+ }
+ .append_div{ 
+ 	position:absolute;
+	right:10000px; 
+	
+ }
+.sort_10{
+	float:left;margin:0 10px 0 0px;text-align:center;
+}
+</style>
+   
+  <div class="main-content">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title"> 菜单编辑</div>
+         <a href="{:u('/admin/index/index')}" class=" btn btn-success">返回首页</a>
+      </div>
+      <br>
+      <div style=" border-bottom:1px solid #ccc;margin:0 0 15px 0;">
+        <p  style=" width:60px;  " class="sort_10">排序</p>
+        <p  style="width:200px;" class="sort_10">icon图标</p>
+       <p class="sort_7">菜单名称</p>
+        <p class="sort_6">路径</p>
+        <p  style="width:80px;" class="sort_10">是否启用</p>
+         <p  class="sort_9" >操作</p>
+        
+        <p style="clear:both;"></p>
+      </div>
+
+      <volist name="system_menu" id="menu">
+        <if condition="$menu.parent eq 0">
+            <div>
+            <input type="hidden" id="id" name="id" value="{$menu.id}" />
+  <input type="text" value="{$menu.sort}" data-id="{$menu.id}" class="sort_1 form-control" name="sort"  id="sort_{$menu.id}" />
+              <input data-id="{$menu.id}" type="text" class="sort_2 form-control" value="{$menu.icon}" name="icon"  id="icon_{$menu.id}" />
+              <input data-id="{$menu.id}" type="text" class="sort_3 form-control" value="{$menu.name}" name="name"  id="name_{$menu.id}"  />
+                <input data-id="{$menu.id}" type="text" class="sort_4 form-control" value="{$menu.path}" name="path"  id="path_{$menu.id}"  />
+               <select data-id="{$menu.id}" type="text" class="sort_5 form-control" name="status" id="status_{$menu.id}">
+                <option value="1">是</option>
+                <option value="0">否</option>
+             </select>
+         <!-- href="javascript:void(0);" onclick="save({$menu.id})" -->
+              <if condition="$menu['path'] == '' && $menu['path'] == null ">
+               <a data-id="{$menu.id}" class="save_sub btn btn-success">修改</a>
+                <p style="float:left; line-height:30px;margin:0 10px 0 0;"><span style="color:#F00;">*</span>包含二级菜单不能删除</p>
+              <else /> 
+              <!--  <a href="javascript:void(0);" onclick="save({$menu.id})" class="btn btn-success">修改</a>   -->
+              <a data-id="{$menu.id}" class="save_sub btn btn-success">修改</a>
+               <a href="javascript:void(0);" onclick="del({$menu.id})" class="btn btn-pink">删除</a>
+              
+                 </if> 
+              
+              
+             </div>
+            <volist name="system_menu" id="menusub">
+<eq name="menusub.parent" value="$menu.id">
+<div>
+<p style=" float:left;margin:0 0 0 0px;width:70px; text-align:center; line-height:30px;">二级菜单</p>
+<input type="text" value="{$menusub.sort}"  name="sort"  id="sort_{$menusub.id}"  data-id="{$menusub.id}" class="sort_1 form-control" />
+ <input data-id="{$menusub.id}" type="text" class="sort_2 form-control" value="{$menusub.icon}"  name="icon"  id="icon_{$menusub.id}" />
+<input class="form-control sort_3" type="text" data-id="{$menusub.id}" value="{$menusub.name}" name="name"  id="name_{$menusub.id}" />
+<input data-id="{$menusub.id}" type="text" class="sort_2 form-control" value="{$menusub.path}" name="path"  id="path_{$menusub.id}" />
+<select data-id="{$menusub.id}" class="form-control sort_5"  name="status" id="status_{$menusub.id}">
+   <option value="1">是</option>
+   <option value="0">否</option>
+</select>
+                <a href="# " class="save_sub btn btn-purple" data-id="{$menusub.id}">修改</a>
+                 <a href="#" class="btn btn-pink" data-id="{$menusub.id}">删除</a>
+                  <p style="clear:both;"></p>
+                </div>
+                <volist name="system_menu" id="menusub1">
+                  <eq name="menusub1.parent" value="$menusub.id">
+                  <div>
+                   <p style=" float:left;margin:0 0 0 0px;width:140px; text-align:center; line-height:30px;">
+                   -&nbsp;-&nbsp;-&nbsp;-&nbsp;三级菜单&nbsp;-&nbsp;-&nbsp;-&nbsp;-</p>
+                  <input data-id="{$menusub1.id}" type="text" class="sort_1 form-control" value="{$menusub1.sort}" name="sort" id="sort_{$menusub1.id}" />
+                  <input data-id="{$menusub1.id}" type="text" class="sort_2 form-control" value="{$menusub1.icon}" name="icon" id="icon_{$menusub1.id}"  />
+                    <input data-value="{$menusub1.id}" type="text" class="sort_3 form-control" value="{$menusub1.name}" name="name" id="name_{$menusub1.id}" />
+                     <input data-id="{$menusub1.id}" type="text" class="sort_2 form-control" value="{$menusub1.path}"  name="path" id="path_{$menusub1.id}" />
+                     <select data-id="{$menusub1.id}" class="sort_5 form-control" name="status" id="status_{$menusub1.id}" >
+                <option value="1">是</option>
+                <option value="0">否</option>
+             </select>
+             <div class="append_div">
+             <div class="append_div1"><br><br>
+      	<a style="margin:0 0 0 20px;" href="#" class="save_del btn btn-pink"  data-id="{$menusub1.id}">删除</a>
+      	<a class="btn btn-white">取消</a>
+      </div></div>
+              <a href="# " class="save_sub btn btn-turquoise"  data-id="{$menusub1.id}">修改</a>
+				<a href="#" class="open_layer btn btn-pink"  data-id="{$menusub1.id}">删除</a>
+                     <p style="clear:both;"></p>
+                    </div>
+                  </eq>
+                </volist>
+              </eq>
+            </volist>
+          </if>
+        
+      </volist>
+      
+      <div style="width:500px;margin:0 auto;"> </div>
+      <script>
+     $('.append_div').hide();
+      $('.open_layer').click(function(){
+    	  $('.append_div').show();
+    	  layer.open({
+    		title:'提示',
+  		    type: 1,
+  		    skin: 'layui-layer-demo', //样式类名
+  		    closeBtn: false, //不显示关闭按钮
+  		    shift: 2,
+  		    shadeClose: true, //开启遮罩关闭
+  		    content: $('.append_div').html()
+  		});
+      });
+      
+      var opts = {
+				"closeButton": true,
+				"debug": false,
+				"positionClass": "toast-top-full-width",
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			};
+      $('.save_sub').click(function(){
+    	  var id = $(this).attr('data-id');
+   		 show_loading_bar(100);
+   		  if($("#name").val() ==  "")
+   		 {
+   			 toastr.error("<i class=fa-info></i>请输入名称内容", opts);
+   			 $("#name").focus();
+   			 return false;
+   		 }
+   		
+   		 if($("#icon").val() ==  "")
+   		 {
+   			 toastr.error("<i class=fa-info></i>请输入图片class", opts);
+   			 $("#icon").focus();
+   			 return false;
+   		 }  
+   		var data = "id="+id+"&name="+$("#name_"+id).val()+"&path="+$("#path_"+id).val()+"&status="+$("#status_"+id).val()+"&icon="+$("#icon_"+id).val()+"&sort="+$("#sort_"+id).val();
+   	 $.ajax({
+   		url:"{:u('/admin/menu/updata')}",
+   		type:"POST",
+   		dataType:"json",
+   		data:data,
+   		success:function(res){
+   			if(res.result == 'success'){
+   				 toastr.success("<i class=fa-info></i>保存成功", opts);
+   				 window.location.reload();
+   			}else{
+   				toastr.error("<i class=fa-info></i>保存失败", opts);
+   			 window.location.reload();
+   			}
+   		}
+   	 
+   	 });
+      }); 
+     
+     
+      $('.save_del').click(function(){
+    	  var id = $(this).attr('data-id');
+    	  alert(id);
+   		 show_loading_bar(100);
+   		  var data = "id="+id+"&name="+$("#name_"+id).val()+"&path="+$("#path_"+id).val()+"&status="+$("#status_"+id).val()+"&icon="+$("#icon_"+id).val()+"&sort="+$("#sort_"+id).val();
+   	 $.ajax({
+   		url:"{:u('/admin/menu/del')}",
+   		type:"POST", 
+   		dataType:"json",
+   		data:data,
+   		success:function(res){
+   			if(res.result == 'success1'){
+   				 toastr.success("<i class=fa-info></i>删除成功", opts);
+   				 window.location.reload();
+   			}else{
+   				toastr.error("<i class=fa-info></i>删除失败", opts);
+   			}
+   		}
+   	 
+   	 });  		    
+      });  
+
+  
+</script> 
+    </div>
+    <footer class="main-footer sticky footer-type-1"> <include file="Common:index_footer" /> </footer>
+  </div>
+</div>
+<include file="Common:footer" />

@@ -1,0 +1,172 @@
+<include file="common:header" />
+<body>
+
+ 
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <div class="main-content">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="widget-box transparent" id="recent-box">
+              <div class="widget-header">
+                <div class="widget-toolbar no-border">
+                  <ul class="nav nav-tabs" id="recent-tab">
+                   
+                    <li><a href="{:U(CONTROLLER_NAME.'/index')}">类型列表</a></li>
+                    <li class="active"><a href="{:U(CONTROLLER_NAME.'/add')}">添加</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="main-container" id="main-container"> 
+              <script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+              
+              <div style="">
+        <form enctype="multipart/form-data"  role="form" id="form1"  method="post" class="validate">
+          <label>名称
+            <input style="width:300px;" class="form-control margin100" type="text" name="name" id="name" />
+          </label>
+          <br>
+          <label>路径
+            <input style="width:300px;" class="form-control" type="text" name="path" id="path" />
+          </label>
+          <br>
+          <label>图标Icon_class
+            <input style="width:300px;" class="form-control margin100" type="text" name="icon" id="icon" />
+          </label>
+          <br>
+          <label>上级模块
+            <select style="width:300px;" class="form-control" name="parent" id="parent">
+              <option value='0'>----顶级----</option>
+              <volist name="system_menu" id="menu">
+                <if condition="$menu.parent eq 0">
+                  <option value="{$menu.id}">{$menu.name}</option>
+                  <volist name="system_menu" id="menusub">
+                    <eq name="menusub.parent" value="$menu.id">
+                      <option value="{$menusub.id}">-------{$menusub.name}</option>
+                      <volist name="system_menu" id="menusub1">
+                        <eq name="menusub1.parent" value="$menusub.id">
+                          <option value="{$menusub1.id}">---------------{$menusub1.name}</option>
+                         </eq>
+                      </volist>
+                    </eq>
+                  </volist>
+                </if>
+              </volist>
+            </select>
+          </label>
+          <br>
+          <br>
+          <label>是否菜单
+            <select style="width:300px;" class="form-control" id="is_menu" name="is_menu">
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
+          </label>
+          <br>
+          <br>
+          <label>排序
+            <input style="width:300px;" class="form-control margin100" type="text" name="sort" id="sort" />
+          </label>
+          <br>
+          <label>状态
+            <select style="width:300px;" class="form-control" id="status" name="status">
+              <option value="1">正常</option>
+              <option value="0">停用</option>
+            </select>
+          </label>
+          <br>
+         <br>
+          <a class="btn btn-success" id="submit">提交</a>
+        </form>
+      </div>
+              <!-- /.main-container-inner --> 
+              
+            </div>
+            <!-- /.main-container --> 
+          </div>
+        </div>
+        <!-- /.row --> 
+      </div>
+      <!-- /.page-content --> 
+    </div>
+    <!-- /.main-content --> 
+    
+  </div>
+  <!-- /.main-container-inner --> 
+   <script>
+$(document).ready(function(){
+    var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-top-full-width",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+	$('#submit').click(function(){
+		 
+		//show_loading_bar(100);
+		 if($("#name").val() ==  "")
+		 {
+			  toastr.error("<i class=fa-info></i>请输入名称内容", opts);
+			 $("#name").focus();
+			 return false;
+		 }
+		 if($("#path").val() ==  "")
+		 {
+			  toastr.error("<i class=fa-info></i>请输入路径内容", opts);
+			 $("#path").focus();
+			 return false;
+		 }
+		 if($("#icon1").val() ==  "")
+		 {
+			// toastr.error("<i class=fa-info></i>请输入图片class", opts);
+			 $("#icon").focus();
+			 return false;
+		 }
+		  
+		 var data = "name="+$("#name").val()+
+		 	 "&path="+$("#path").val()+
+		 	 "&is_menu="+$('#is_menu').val()+
+		 	"&status="+$('#status').val()+
+			"&icon="+$('#icon').val()+
+			"&sex="+$('#sex').val()+
+			"&parent="+$('#parent').val()+
+			"&sort="+$('#sort').val();
+		 $.ajax({
+			url:"{:u(CONTROLLER_NAME . '/add')}",
+			type:"POST",
+			dataType:"json",
+			data:data,
+			success:function(res){
+				if(res.result == 'success'){
+					alert('操作成功');
+					 window.location.reload();
+				}else{
+					alert('操作失败');
+					 window.location.reload();
+				}
+			}
+		 
+		 });
+		 
+	});
+	
+});
+</script> 
+    </div>
+<include file="common:footer" />
+
+
+ 

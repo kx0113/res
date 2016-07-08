@@ -1,0 +1,212 @@
+<include file="ncommon:header" />
+<link href="__PUBLIC__/Admin/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><if condition="!empty($list['id'])">编辑-{$list.name}<else />添加</if></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="">选项1</a>
+                            </li>
+                        </ul>
+                        <a class="close-link" href="javascript:location.reload();">
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+
+                    <form class="form-horizontal m-t" id="commentForm" method='post'  action="" name="form" enctype="multipart/form-data">
+
+                        <input type="hidden" name="id" value="{$list.id}">
+                        <input type="hidden" name="par" value="{$par}">
+
+                        <eq name="show['name']" value="name">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{$tit.name}：</label>
+                            <div class="col-sm-5">
+                                <input value="{$list.name}" id="name" name="name" class="form-control" type="text" required aria-required="true">
+                            </div>
+                        </div>
+                        </eq>
+
+                        <eq name="show['num']" value="num">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{$tit.num}：</label>
+                            <div class="col-sm-5">
+                                <input id="num" value="{$list.num}" name="num" class="form-control" type="text" required aria-required="true">
+                            </div>
+                        </div>
+                        </eq>
+
+                        <eq name="show['sub_time']" value="sub_time">
+                        <div class="form-group" id="data_1">
+                            <label class="col-sm-3 control-label">{$tit.sub_time}：</label>
+                            <div class="col-sm-5">
+                                <div class="input-group date">
+                                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+                                    <input id="sub_time"  <if condition="!empty($list['sub_time'])">value="{$list.sub_time|date="Y-m-d",###}"</if>  name="sub_time" class="laydate-icon form-control layer-date " onclick="ldate()">
+                                    <!--<input type="text" name="sub_time" id="sub_time" class=" form_date form-control" value="{$list.sub_time|date="Y-m-d",###}">-->
+                                </div>
+                            </div>
+                        </div>
+                        </eq>
+
+                        <eq name="show['gc_id1']" value="gc_id1">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{$tit.gc_id1}：</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" name="gc_id1" required aria-required="true">
+                                    <option value="" >- 请选择 -</option>
+                                    <foreach name="goodsclass.class1" item="class1" >
+                                        <option <if condition="$list['gc_id1'] eq $class1['id']">selected="selected"</if>value="{$class1.id}" >{$class1.name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                        </div>
+                           </eq>
+
+                        <eq  name="show['gc_id2']" value="gc_id2">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$tit.gc_id2}：</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control" name="gc_id2" required aria-required="true">
+                                        <option value="" >- 请选择 -</option>
+                                        <foreach name="goodsclass.class2" item="class2" >
+                                            <option <if condition="$list['gc_id2'] eq $class2['id']">selected="selected"</if>value="{$class2.id}" >{$class2.name}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                        </eq>
+
+                        <eq name="show['gc_id3']" value="gc_id3">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{$tit.gc_id3}：</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" name="gc_id3" required aria-required="true">
+                                    <option value="" >- 请选择 -</option>
+                                    <foreach name="goodsclass.class3" item="class3" >
+                                        <option <if condition="$list['gc_id3'] eq $class3['id']">selected="selected"</if>value="{$class3.id}" >{$class3.name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                        </div>
+                            </eq>
+
+                        <eq  name="show['gc_id4']" value="gc_id4">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$tit.gc_id4}：</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control" name="gc_id4" required aria-required="true">
+                                        <option value="" >- 请选择 -</option>
+                                        <foreach name="goodsclass.class4" item="class4" >
+                                            <option <if condition="$list['gc_id4'] eq $class4['id']">selected="selected"</if>value="{$class4.id}" >{$class4.name}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                        </eq>
+                        <eq  name="show['gc_id5']" value="gc_id5">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$tit.gc_id5}：</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control" name="gc_id5" required aria-required="true">
+                                        <option value="" >- 请选择 -</option>
+                                        <foreach name="goodsclass.class5" item="class5" >
+                                            <option <if condition="$list['gc_id5'] eq $class5['id']">selected="selected"</if>value="{$class5.id}" >{$class5.name}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                        </eq>
+                        <eq  name="show['gc_id6']" value="gc_id6">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$tit.gc_id6}：</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control" name="gc_id6" required aria-required="true">
+                                        <option value="" >- 请选择 -</option>
+                                        <foreach name="goodsclass.class6" item="class6" >
+                                            <option <if condition="$list['gc_id6'] eq $class6['id']">selected="selected"</if>value="{$class6.id}" >{$class6.name}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                        </eq>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否：</label>
+                            <div class="col-sm-5">
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">未选择</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">B</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">M</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否500以上：</label>
+                            <div class="col-sm-5">
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">否</label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">是</label>
+                            </div>
+                        </div>
+
+                        <eq  name="show['remark']" value="remark">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{$tit.remark}：</label>
+                            <div class="col-sm-5">
+                                <textarea id="remark" name="remark" class="form-control" rows="5" >{$list.remark}</textarea>
+
+                            </div>
+                        </div>
+                        </eq>
+
+                        <div class="form-group">
+                            <div class="col-sm-5 col-sm-offset-3">
+                                <button class="margin01000 btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-danger" type="reset">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+<if condition="$list.id eq ''">
+    $(".form_date").attr('value',now);
+</if>
+</script>
+<include file="ncommon:footer" />
+<script src="__PUBLIC__/Admin/hplus/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/validate/messages_zh.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/demo/form-validate-demo.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/layer/laydate/laydate.js"></script>
+<script>
+    function ldate(){
+        laydate({istime: true, format: 'YYYY-MM-DD'})
+    }
+</script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/cropper/cropper.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/demo/form-advanced-demo.min.js"></script>
+</body>
+</html>

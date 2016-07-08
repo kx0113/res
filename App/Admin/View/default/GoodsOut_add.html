@@ -1,0 +1,436 @@
+<include file="common:header"/>
+<body>
+
+<div class="main-container" id="main-container">
+    <div class="main-container-inner">
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <br>
+                        <form role="form" id="form1" method="post" enctype="multipart/form-data" action="">
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">物品分类</label>
+                                <div class="col-sm-9">
+                                    <!--<if condition="$gclist['id'] eq $list['gc_id']">selected = selected</if>-->
+                                    <select  <if condition="$list.id neq ''">disabled="false"</if> name="gc_id" id='gc_id' onchange="getGoodsEnter(this)">
+                                        <option value="0">- 请选择 -</option>
+                                        <volist name="gc_list" id="gclist">
+                                            <option <if condition="$gclist['id'] eq $list['gc_id']">selected = selected</if>
+                                            value="{$gclist.id}">{$gclist.name}</option>
+                                        </volist>
+                                    </select>
+                                    <span style="display: none;" class="addGoodsEnterData">&nbsp;&nbsp;此分类下未查找到任何物品，是否去
+                                        <a href="{:U('GoodsEnter/add')}">[添加]</a>数据？</span>
+                                    <if condition="$list.id neq ''"><span style="color:#999">禁止编辑</span></if>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">物品名称</label>
+                                <input type="hidden" name="id" id="id" value="{$list.id}"/>
+                                <div class="col-sm-9">
+                    <style>
+                        .icon_load_style{display:none;color:#f60;}
+                        .icon_lock_style{color:#ff0000;font-size:20px;margin:3px 0 0 10px;}
+                       .icon_not_class{color:#ff0000;}
+                        .icon_unlock_style{display:none;color:#00aa00;font-size:20px;margin:3px 0 0 10px;}
+                        .spinner_unlock_font{color:#00aa00;display:none;}
+                    </style>
+                                    <select disabled="false" name="ge_id" id="goods_list"  onchange="getGoodsContent(this)">
+                                        <option value="0">- 请选择 -</option>
+                                        <if condition="$list.id neq '' ">
+                                            <volist name="ge_list" id="gelist_vo">
+                                                <option <if condition="$gelist_vo['id'] eq $list['ge_id']">selected = selected</if>
+                                                value="{$gelist_vo.id}">{$gelist_vo.name}</option>
+                                            </volist>
+                                        </if>
+                                    </select>
+
+                                        <span style="display:none;color:#f60;font-size:20px;margin:3px 0 0 10px;"
+                                          class="icon-spinner icon_spin_style icon-spin js_class_spinner" ></span>
+                                    <span class="js_class_spinner icon_load_style">正在加载中...</span>
+                                    <span class="icon_lock_style icon-remove js_class_lock"></span>
+                                    <span class="spinner_lock_font icon_not_class js_class_lock" >请先选择物品分类</span>
+                                    <span class="editstatus_js icon_unlock_style icon-ok js_class_unlock"></span>
+
+                                    <span class='spinner_unlock_font js_class_unlock' >请选择物品名称</span>
+                                    <if condition="$list.id neq ''"><span style="color:#999">禁止编辑</span></if>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">已选择物品名称</label>
+                                <div class="col-sm-9">
+                                    <input disabled="true" value="{$ge_content.name}" type="text" data-id="" id="select_name" placeholder="" name="select_name"
+                                           class="col-xs-10 col-sm-5"/>
+                                     <span style="display:none;color:#f60;font-size:20px;margin:3px 0 0 10px;"
+                                           class="icon-spinner icon_spin_style icon-spin icon_load_spinner" ></span>
+                                    <span class="icon_load_spinner icon_load_style">正在加载中...</span>
+                                    <span class="icon_err_goods icon-remove" style="font-size:20px;color:#f00;margin:3px 0 0 10px;"></span>
+                                    <span class='icon_err_goods' style="color:#f00;">请选择物品名称</span>
+                                    <span class="icon_succ_goods icon-ok" style="display:none;font-size:20px;color:#00aa00;margin:3px 0 0 10px;"></span>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">库存已设置单位</label>
+                                <div class="col-sm-9">
+                                    <input  disabled="true" value="{$ge_content.unit}" type="text" id="unit" placeholder="" name="unit"
+                                           class="col-xs-10 col-sm-5"/>
+                                     <span style="display:none;color:#f60;font-size:20px;margin:3px 0 0 10px;"
+                                           class="icon-spinner icon_spin_style icon-spin icon_load_spinner" ></span>
+                                    <span class="icon_load_spinner icon_load_style">正在加载中...</span>
+                                    <span class="icon_err_goods icon-remove" style="font-size:20px;color:#f00;margin:3px 0 0 10px;"></span>
+                                    <span class='icon_err_goods' style="color:#f00;">请选择物品名称</span>
+                                    <span class="icon_succ_goods icon-ok" style="display:none;font-size:20px;color:#00aa00;margin:3px 0 0 10px;"></span>
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">库存剩余量</label>
+                                <div class="col-sm-9">
+                                    <input  disabled="true" value="{$ge_content.quantity}" type="text" id="quantity" placeholder="" name="quantity"
+                                           class="col-xs-10 col-sm-5"/>
+                                    <span style="display:none;color:#f60;font-size:20px;margin:3px 0 0 10px;"
+                                          class="icon-spinner icon_spin_style icon-spin icon_load_spinner" ></span>
+                                    <span class="icon_load_spinner icon_load_style">正在加载中...</span>
+                                    <span class="icon_err_goods icon-remove" style="font-size:20px;color:#f00;margin:3px 0 0 10px;"></span>
+                                    <span class='icon_err_goods' style="color:#f00;">请选择物品名称</span>
+                                    <span class="icon_succ_goods icon-ok" style="display:none;font-size:20px;color:#00aa00;margin:3px 0 0 10px;"></span>
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">领取数量</label>
+                                <div class="col-sm-9">
+                                    <input value="{$list.get_num}" type="text" id="get_num" placeholder="请输入领取数量" name="get_num"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">领取人</label>
+                                <div class="col-sm-9">
+                                    <input value="{$list.get_person}" type="text" id="get_person" placeholder="请输领取人" name="get_person"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">领取时间</label>
+                                <div class="col-sm-4">
+                                    <div style="padding:0;" class="input-group date start_time " data-date=""
+                                          data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+                                          data-link-format="yyyy-mm-dd"
+
+                                >
+                                    <input class="form-control form_date" id='get_time' placeholder="请选择领取时间"
+                                           size="16" type="text" name="get_time"
+                                    <if condition="$list.get_time neq '' ">
+                                        value="{$list.get_time}"
+                                    </if>
+                                    >
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <script>
+                                <if condition="$list.id eq ''">
+                                        $(".form_date").val(now);
+                                </if></script>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1"> 是否归还</label>
+                                <div class="col-sm-9">
+                                    <label style="margin:5px 0 0 0;">
+                                        <input type="radio" name="is_return" value="0"
+                                        <if condition="$list.is_return eq 0"> checked="checked"</if>
+                                        />否
+                                    </label>
+                                    <label style="margin:5px 0 0 0;">
+                                        <input type="radio" name="is_return" value="1"
+                                        <if condition="$list.is_return eq 1"> checked="checked"</if>
+                                        />是
+                                    </label>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">用途</label>
+
+                                <div class="col-sm-9">
+<textarea placeholder="请输入用途" rows="5" id="purpose"
+          name="purpose" class="col-xs-10 col-sm-5">{$list.purpose}</textarea>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">备注</label>
+
+                                <div class="col-sm-9">
+<textarea placeholder="请输入备注" rows="5" id="remark"
+          name="remark" class="col-xs-10 col-sm-5">{$list.remark}</textarea>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+<style>
+    .sub_f{display: none;}
+</style>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <if condition="$list.id eq '' ">
+                                        <a class="sub_f btn btn-info" href="javascript:$('form').submit()"><i
+                                                class="icon-ok bigger-110"></i>提交</a>
+                                        <else/>
+                                        <a class="sub_f btn btn-info" href="javascript:$('form').submit()"><i
+                                                class="icon-ok bigger-110"></i>修改</a>
+                                    </if>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+        <if condition="$list.id neq ''">
+            <script>
+                $(".icon_err_goods").hide();
+                $(".icon_succ_goods").show();
+                $(".js_class_lock").hide();
+               $(".editstatus_js").show();
+
+            </script>
+        </if>
+        <script>
+            function iconFontErr(){
+                $(".icon_err_goods").show();
+                $(".icon_succ_goods").hide();
+            }
+            function iconFontSucc(){
+                $(".icon_succ_goods").show();
+                $(".icon_err_goods").hide();
+            }
+            //提交form表单数据
+            function subFormAjax(){
+//                var get_num = "";
+//                var quantity = "";
+                var get_num = $("#get_num").val();//获取领取数量
+                var quantity = $("#quantity").val();//获取库存剩余量
+                var select_name = $("#select_name").val(); //已选择物品名称
+                var unit = $("#unit").val(); //库存已设置单位
+                var xm = quantity - get_num;
+                if( xm < 0){
+                    alert('库存剩余量不足！');
+                }else{
+                    //判断选择的物品是否已经传值给html
+                  if(quantity == '' && select_name == '' && unit == ''){
+                        alert('请重新选择商品名称，接下来页面会执行刷新！');
+                        location.reload();
+                  }
+                    var select_name = $("#select_name").val();
+                    var gc_id = $("#gc_id").val(); //获取物品分类id
+                    var goods_list = $("#goods_list").val(); //获取物品名称ge_id
+                    var data = $("#form1").serialize() +"&ge_id=" + goods_list + "&gc_id=" + gc_id + "&get_num="+get_num+"&select_name="+select_name;
+                    AjaxDataGet(data);
+                }
+                delete get_num;
+                delete quantity;
+            }
+            //ajax提交
+            function AjaxDataGet(data){
+                $.ajax({
+                    url: "<?php echo u(CONTROLLER_NAME . '/addData'); ?>",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: function (res) {
+                        if(res.result == 'quantity'){
+                            alert('系统错误，请稍后重试！');
+                            location.reload();
+                        }
+                        if(res.result == 'findgn'){
+                            alert('系统错误，请稍后重试！');
+                            location.reload();
+                        }
+                        if(res.result == 'success'){
+                            if(confirm('操作成功！是否继续领取下一件物品？')){
+                                location.reload();
+                            }else{
+                                location.href='{:U(CONTROLLER_NAME . "/index")}';
+                            }
+                        }
+                        if(res.result == 'error'){
+                            alert('操作失败！');
+                        }
+                    }
+                });
+            }
+            var htmlr= "<option value=\"0\">- 请选择 -</option>";
+            function spinStatSuc(){
+                $("#goods_list").removeAttr('disabled');
+                $(".js_class_spinner").hide();
+                $(".js_class_unlock").show();
+            }
+            function spinStatErr(){
+                $("#goods_list").attr('disabled',true);
+                $(".js_class_unlock").hide();
+                $(".js_class_lock").show();
+            }
+            //已选择物品名称、库存已设置单位、库存剩余量 插入数据
+            function inputValSetOn(name,id,unit,quantity){
+                $("#select_name").attr('value',name);
+                $("#select_name").attr('data-id',id);
+                $("#unit").attr('value',unit);
+                $("#quantity").attr('value',quantity);
+                $(".sub_f").show();
+
+            }
+            //已选择物品名称、库存已设置单位、库存剩余量 清空数据
+            function inputValSetOff(){
+                $("#select_name").attr('value','');
+                $("#select_name").attr('data-id','');
+                $("#unit").attr('value','');
+                $("#quantity").attr('value','');
+                $(".sub_f").hide();
+            }
+            //Ajax获取物品名称
+            function getGoodsEnter(obj){
+                var id = $(obj).val();
+                if(id == 0){
+                    $(".addGoodsEnterData").hide();
+                    $("#goods_list").attr('disabled',true);
+                    inputValSetOff();
+                    spinStatErr();
+                    iconFontErr();
+                    $("#goods_list").html(htmlr);
+                    return false;
+                 }else{
+                    $(".addGoodsEnterData").hide();
+                    $(".js_class_spinner").show();
+                    $(".js_class_unlock").hide();
+                    $(".js_class_lock").hide();
+                    var data = "gc_id="+id;
+                    $.ajax({
+                        url: "<?php echo u(CONTROLLER_NAME . '/GetGoods'); ?>",
+                        type: "POST",
+                        dataType: "json",
+                        data: data,
+                        success: function (data) {
+                            if(data.result == '1'){
+                                inputValSetOff();
+                                $(".js_class_spinner").hide();
+                                spinStatErr();
+                                iconFontErr();
+                                $("#goods_list").html(htmlr);
+                                $(".addGoodsEnterData").show();
+                                alert('此分类下未查找到任何物品！');
+                                return false;
+                            }else{
+                                var html = "";
+                                var result = eval(data);
+                                var lengthnum = result.length;
+                                if(lengthnum > 0){
+                                    inputValSetOff();
+                                    spinStatSuc();
+                                    html+= "<option value=\"0\">- 请选择 -</option>";
+                                    for(var i = 0;i<lengthnum;i++)
+                                    {
+                                        html+="<option value=\""
+                                                + result[i]["id"]
+                                                + "\">"
+                                                + result[i]["name"]
+                                                + "</option>";
+                                    }
+                                    $("#goods_list").html(html);
+                                }
+                             }
+                        }
+                    });
+                }
+            }
+            //Ajax获取物品详情
+            function getGoodsContent(obj){
+                var id = $(obj).val();
+                if(id == 0){
+                    inputValSetOff();
+                    iconFontErr();
+                    return false;
+                }else{
+                    $(".icon_err_goods").hide();
+                    $(".icon_succ_goods").hide();
+                    $(".icon_load_spinner").show();
+                    var data = "ge_id="+id;
+                    $.ajax({
+                        url: "<?php echo u(CONTROLLER_NAME . '/getGoodsContent'); ?>",
+                        type: "POST",
+                        dataType: "json",
+                        data: data,
+                        success: function (data) {
+                            if(data.result == '1'){
+                                iconFontErr();
+                                alert('未知错误，页面将会刷新，请重试！');
+                                location.reload();
+                                return false;
+                            }else{
+                                var result = eval(data);
+                                var lengthnum = result.length;
+                                if (typeof (result) === 'object') {
+                                    $(".icon_load_spinner").hide();
+                                    iconFontSucc();
+                                    inputValSetOn(result.name,result.id,result.unit,result.quantity);
+                                }
+                            }
+                        }
+                    });
+              }
+            }
+            //jquery validate 表单验证
+            $().ready(function() {
+                $("#form1").validate({
+                    rules: {
+                        name: "required",
+                        get_num: {
+                            required: true,
+                            maxlength: 8,
+                            digits:true,
+                        },
+                        unit: "required",
+                        get_person:"required",
+                        purpose:"required",
+                    },
+                    messages: {
+                        name: "*物品名称不能为空",
+                        get_num: {
+                            required: "*请输入合法整数类型",
+                            maxlength:"*最多8位数",
+                        },
+                        unit: "*单位不能为空",
+                        get_person: "*领取人不能为空",
+                        purpose: "*用途不能为空",
+                    }
+                });
+            });
+            $.validator.setDefaults({
+                submitHandler: function(form) {
+                    subFormAjax();
+                }
+            });
+        </script>
+    </div><!-- /.main-container-inner -->
+
+</div>
+<include file="common:footer"/>

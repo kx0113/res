@@ -1,0 +1,350 @@
+<include file="common:header"/>
+<body>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <div class="main-container-inner">
+
+
+        <div class="main-content">
+
+            <style>
+                .widget-toolbar {
+                    display: inline-block;
+                    padding: 0 10px;
+                    line-height: 37px;
+                    float: none;
+                    position: relative;
+                }
+            </style>
+            <div class="page-content">
+                <div class="row">
+
+                    <div class="col-xs-12">
+
+                        <div class="widget-box transparent" id="recent-box">
+                            <div class="widget-header">
+
+
+                                <div class="widget-toolbar no-border">
+                                    <ul class="nav nav-tabs" id="recent-tab">
+                                        <if condition="$list.id eq '' ">
+                                            <li class="active">
+                                                <a href="{:U(CONTROLLER_NAME . '/add')}">公司人员添加</a>
+                                            </li>
+                                            <else/>
+                                            <li class="active">
+                                                <a href="#">[{$list.name}]-编辑</a>
+                                            </li>
+                                        </if>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br>
+                        <form role="form" id="form1" method="post" enctype="multipart/form-data" action="">
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">姓名</label>
+                                <input type="hidden" name="id" id="id" value="{$list.id}"/>
+                                <div class="col-sm-9">
+                                    <input value="{$list.name}" type="text" id="name" placeholder="请输入姓名" name="name"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">性别</label>
+
+                                <div class="col-sm-9">
+
+                                    <label style="margin:5px 0 0 0;">
+
+                                        <input type="radio" name="sex" value="0"
+                                        <if condition="$list.sex eq 0"> checked="checked"</if>
+                                        />男
+                                    </label>
+                                    <label style="margin:5px 0 0 0;">
+                                        <input type="radio" name="sex" value="1"
+                                        <if condition="$list.sex eq 1"> checked="checked"</if>
+                                        />女
+                                    </label>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">出生年月</label>
+                                <div class="col-sm-9">
+                                    <div style="padding:0;" class="input-group date form_date col-md-5" data-date=""
+                                         data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+                                         data-link-format="yyyy-mm-dd">
+                                        <input class="form-control" size="16" placeholder="请选择出生年月"
+                                               type="text" name="birthday"
+                                        <if condition="$list.birthday neq '' "> value="{$list.birthday|date="Y-m-d",###}"
+                                        </if>
+                                        >
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">籍贯</label>
+
+                                <div class="col-sm-9">
+                                    <input value="{$list.native_place}" type="text" id="native_place" placeholder="请输入籍贯" name="native_place"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">民族</label>
+
+                                <div class="col-sm-9">
+                                    <input value="{$list.nation}" type="text" id="nation" placeholder="请输入民族" name="nation"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">身份证号</label>
+
+                                <div class="col-sm-9">
+                                    <input value="{$list.identity_card}" type="text" id="identity_card" placeholder="请输入身份证号" name="identity_card"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">现居址</label>
+
+                                <div class="col-sm-9">
+                                    <input value="{$list.in_addressing}" type="text" id="in_addressing" placeholder="请输入现居址" name="in_addressing"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1"> 所属部门</label>
+                                <!-- 获取ID -->
+
+                                <div class="col-sm-9">
+                                    <select name="section_id">
+                                        <volist name="UserGrade" id="n_v">
+                                            <option
+                                            <if condition="$n_v['id'] eq $list['section_id']">selected = selected</if>
+                                            value="{$n_v.id}">{$n_v.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="form-group">
+
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1"> 职位</label>
+                                <!-- 获取ID -->
+
+                                <div class="col-sm-9">
+                                    <select name="station_id">
+                                        <volist name="station_list" id="sllist">
+                                            <option
+                                            <if condition="$sllist['station_id'] eq $list['station_id']">selected = selected</if>
+                                            value="{$sllist.station_id}">{$sllist.station_name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">联系电话</label>
+
+                                <div class="col-sm-9">
+                                    <input value="{$list.tel}" type="text" id="tel" placeholder="请输入联系电话" name="tel"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">工作QQ</label>
+
+                                <div class="col-sm-9">
+                                    <input value="{$list.workqq}" type="text" id="workqq" placeholder="请输入工作QQ" name="workqq"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">入职时间</label>
+                                <div class="col-sm-9">
+                                    <div style="padding:0;" class="input-group date form_date col-md-5" data-date=""
+                                         data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+                                         data-link-format="yyyy-mm-dd">
+                                        <input class="form-control" size="16" placeholder="请选择入职时间"
+                                               type="text" name="entry_time"
+                                        <if condition="$list.entry_time neq '' "> value="{$list.entry_time|date="Y-m-d",###}"
+                                        </if>
+                                        >
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">预计投保时间</label>
+                                <div class="col-sm-9">
+                                    <div style="padding:0;" class="input-group date form_date col-md-5" data-date=""
+                                         data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+                                         data-link-format="yyyy-mm-dd">
+                                        <input class="form-control" size="16" placeholder="请选择预计投保时间"
+                                               type="text" name="predict_insure"
+                                        <if condition="$list.predict_insure neq '' "> value="{$list.predict_insure|date="Y-m-d",###}"
+                                        </if>
+                                        >
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">投保情况</label>
+
+                                <div class="col-sm-9">
+
+                                    <label style="margin:5px 0 0 0;">
+
+                                        <input type="radio" name="insure_situation" value="0"
+                                        <if condition="$list.insure_situation eq 0"> checked="checked"</if>
+                                        />未投保
+                                    </label>
+                                    <label style="margin:5px 0 0 0;">
+                                        <input type="radio" name="insure_situation" value="1"
+                                        <if condition="$list.insure_situation eq 1"> checked="checked"</if>
+                                        />已投保
+                                    </label>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">备注</label>
+
+                                <div class="col-sm-9">
+<textarea placeholder="请输入备注" rows="5" id="remark"
+          name="remark" class="col-xs-10 col-sm-5">{$list.remark}</textarea>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">是否离职</label>
+
+                                <div class="col-sm-9">
+
+                                    <label style="margin:5px 0 0 0;">
+
+                                        <input type="radio" name="is_dimission" value="0"
+                                        <if condition="$list.is_dimission eq 0"> checked="checked"</if>
+                                        />未离职
+                                    </label>
+                                    <label style="margin:5px 0 0 0;">
+                                        <input type="radio" name="is_dimission" value="1"
+                                        <if condition="$list.is_dimission eq 1"> checked="checked"</if>
+                                        />已离职
+                                    </label>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <if condition="$list.id eq '' ">
+                                        <a class="sub_f btn btn-info" href="javascript:$('form').submit()" name="on"><i
+                                                class="icon-ok bigger-110"></i>提交</a>
+                                        <else/>
+                                        <a class="sub_f btn btn-info" href="javascript:$('form').submit()" name="on"><i
+                                                class="icon-ok bigger-110"></i>修改</a>
+                                    </if>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
+
+        <script>
+
+
+            $().ready(function() {
+                // validate the comment form when it is submitted
+                $("#commentForm").validate();
+
+                // validate signup form on keyup and submit
+                $("#form1").validate({
+                    rules: {
+                        name: "required",
+                        in_addressing: "required",
+                        tel:"required",
+                    },
+                    messages: {
+                        name: "姓名不能为空",
+                        in_addressing: "现居址不能为空",
+                        tel: "联系电话不能为空",
+                    }
+                });
+                $().ready(function() {
+                    $("#form1").validate({
+                        submitHandler:function(form){
+                            //alert("提交事件!");
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        </script>
+    </div><!-- /.main-container-inner -->
+
+
+</div>
+
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>" + "<" + "/script>");
+</script>
+<![endif]-->
+
+<include file="common:footer"/>

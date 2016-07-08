@@ -1,0 +1,75 @@
+<div class="sidebar-collapse">
+    <ul class="nav" id="side-menu">
+        <li class="nav-header">
+            <div class="dropdown profile-element">
+                <span>
+
+                    <if condition="$adminindexshow.head eq ''">
+                        <img  class="img-circle" style="line-height: normal;" src="__PUBLIC__/Admin/hplus/img/p_big1.jpg"  width="70" height="70 "   />
+        <else />
+        <img  class="img-circle" style="line-height: normal;" src="{$adminheadpath}{$adminindexshow.head}"  width="70" height="70 " />
+        </if>
+                    <!--<img alt="image" class="img-circle" src="__PUBLIC__/Admin/hplus/img/profile_small.jpg" />--></span>
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold">欢迎，{$account}</strong></span>
+                               <span class="text-muted text-xs block">
+                                   <if condition="$adminindexshow.id eq '1'">开发者<else />
+                                   {$adminindexshow.group_id|readGroup=###}</if><b class="caret"></b></span>
+                                </span>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                    <li><a class="J_menuItem" href="{:U('Index/adminhead')}">修改头像</a>
+                    </li>
+                   <!-- <li><a class="J_menuItem" href="profile.html">个人资料</a>
+                    </li>
+                    <li><a class="J_menuItem" href="contacts.html">联系我们</a>
+                    </li>
+                    <li><a class="J_menuItem" href="mailbox.html">信箱</a>
+                    </li>-->
+                    <li class="divider"></li>
+                    <li><a href="{:u('Login/loginOut')}">安全退出</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="logo-element">后台
+            </div>
+        </li>
+        <volist name="system_menu" id="menu">
+            <if condition="$menu.pid eq 0">
+                <li class="menuli_{$menu.id}" data-num="0" >
+                    <a href=""  class="dropdown-toggle" data-value="{$menu.id}">
+                        <i class="fa fa-{$menu.icon}"></i>
+                        <span class="nav-label">{$menu.packagename}</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level submenu a_{$menu.id}">
+                        <volist name="system_menu" id="menusub">
+                            <eq name="menusub.pid" value="$menu.id">
+                                <li class="menusub_li_{$menusub.id}">
+                                    <a class='J_menuItem'  data-sub="0" href="{:u($menusub['funcname'])}"  data-value="{$menusub.id}">
+                                        <i class="icon-double-angle-right {$menusub.icon}"></i>
+                                        {$menusub.packagename}
+                                        <!--    <span class="fa arrow"></span>-->
+                                    </a>
+                                  <!-- <ul class="nav nav-third-level">
+                                        <volist name="system_menu" id="menusub1">
+                                            <eq name="menusub1.parent" value="$menusub.id">
+                                                <li>
+                                                    <a href="{:u($menusub1['path'])}" class="J_menuItem" data-value="{$menusub1.id}">
+                                                            <i class="icon-double-angle-right {$menusub1.icon}"></i>
+                                                       {$menusub1.name}
+                                                    </a>
+                                                </li>
+                                            </eq>
+                                        </volist>
+                                    </ul>-->
+                                </li>
+                            </eq>
+                        </volist>
+                    </ul>
+                </li>
+            </if>
+        </volist>
+    </ul>
+</div>

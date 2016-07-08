@@ -1,0 +1,68 @@
+<include file="ncommon:header" />
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>列表</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">选项1</a>
+                    </li>
+                </ul>
+                <a class="close-link" href="javascript:location.reload();">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+
+                    <div class="example-wrap">
+                        <div class="example">
+                            <table data-toggle="table" data-url="" data-mobile-responsive="true">
+                                <thead>
+                                <tr>
+                                    <th >名称</th>
+                                    <th>Star</th>
+                                    <th >描述</th>
+                                    <th >描述</th>
+                                    <th >描述</th>
+                                    <th >描述</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="vo">
+                                <tr>
+                                    <td >名称</td>
+                                    <td>Star</td>
+                                    <td >描述</td>
+                                    <td >描述</td>
+                                    <td >描述</td>
+                                    <td >描述</td>
+                                </tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                            <ul class="fy_li">{$page}</ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="ncommon:footer" />
+</body>
+</html>

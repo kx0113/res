@@ -1,0 +1,87 @@
+<include file="ncommon:header" />
+<link href="__PUBLIC__/Admin/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5><if condition="!empty($list['id'])">编辑-{$list.name}<else />添加</if></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="">选项1</a>
+                            </li>
+                        </ul>
+                        <a class="close-link" href="javascript:location.reload();">
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+
+                    <form class="form-horizontal m-t" id="commentForm" method='post'  action="" name="form" enctype="multipart/form-data">
+
+                        <input type="hidden" name="id" id="id" value="{$list.id}" />
+                        <input type="hidden" name="par" id="par" value="{$par}" />
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名称：</label>
+                            <div class="col-sm-5">
+                                <input value="{$list.name}" id="name" name="name" class="form-control" type="text" required aria-required="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">权重：</label>
+                            <div class="col-sm-5">
+                                <input value="{$list.sort}" id="sort" name="sort" class="form-control" type="text" required aria-required="true">
+                            </div>
+                        </div>
+                        <if condition="$par eq '61212'">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">特殊值：</label>
+                            <div class="col-sm-5">
+                                <input value="{$list.value}" id="value" name="value" class="form-control" type="text" >
+                            </div>
+                        </div>
+                            </if>
+
+                        <div class="form-group">
+                            <div class="col-sm-5 col-sm-offset-3">
+                                <button class="margin01000 btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-danger" type="reset">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+<if condition="$list.id eq ''">
+    $(".form_date").attr('value',now);
+</if>
+</script>
+<include file="ncommon:footer" />
+<script src="__PUBLIC__/Admin/hplus/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/validate/messages_zh.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/demo/form-validate-demo.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/cropper/cropper.min.js"></script>
+<!--<script src="__PUBLIC__/Admin/hplus/js/demo/form-advanced-demo.min.js"></script>-->
+
+</body>
+</html>

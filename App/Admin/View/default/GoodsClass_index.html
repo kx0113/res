@@ -1,0 +1,106 @@
+<include file="ncommon:header" />
+<link href="__PUBLIC__/Admin/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>列表 </h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">选项1</a>
+                    </li>
+
+                </ul>
+
+                <a class="close-link" href="javascript:location.reload();">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <form class="form-horizontal" role="form"  id="form1" enctype="multipart/form-data" action="" method="get">
+                        <div style="margin:7px 0 0  0;">
+                            <div  class=" margin0 fl  margin01500">
+                                <a  href="{:U(CONTROLLER_NAME . '/add',array('par'=>$par))}" class="btn btn-danger fl margin01500">添加</a>
+                                <p class="search_title">名称</p>
+                                <p class="fl margin0">
+                                    <input type="text" class=" form-control " name="name" value="{$fdata.name}" />
+                                </p>
+                                <div class="clb"></div>
+                            </div>
+                            <a style="" href="javascript:$('form').submit()" class="btn btn-primary ">查询</a>
+                        </div>
+                        <div class="clb"></div>
+                    </form><br>
+                    <!-- Example Cellstyle -->
+                    <div class="example-wrap">
+                        <div class="example">
+                            <table data-toggle="table" data-url="" data-mobile-responsive="true">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>名称</th>
+                                    <th>特殊值</th>
+                                    <th>权重</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="vo">
+                                    <tr>
+                                        <input type="hidden" name="id" id="id" value="{$vo.id}" />
+                                        <td>{$vo.id}</td>
+                                        <if condition="$par eq '82121'">  <td>{$vo.value|getGoodsClassName=###}</td></if>
+                                        <td>{$vo.name}</td>
+                                        <td class="hidden-480">{$vo.value}</td>
+                                        <td class="hidden-480">{$vo.sort}</td>
+                                        <td class="hidden-480"> {$vo.time|date="Y-m-d  H:i:s",###} </td>
+                                        <td>
+                                            <a href="{:u(CONTROLLER_NAME . '/EditData',array('id'=>$vo['id'],'par'=>$par))}" >[编辑] </a>
+                                         <!--   <a onclick="saveStatus_D({$vo.id},0,'确定要删除？');" href="javascript:void(0);">[删除]</a>-->
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                            <ul  class="fy_li">
+                                {$page}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Example Cellstyle -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //单条数据删除
+    function saveStatus_D(id,status,msg){
+        var data = "id="+id+"&par=index&status="+status;
+        if(confirm(msg)) {
+            AjaxSubmit('delete_data', data,1);
+        }
+        return false;
+    }
+</script>
+<include file="ncommon:footer" />
+<script src="__PUBLIC__/Admin/hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/cropper/cropper.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/demo/form-advanced-demo.min.js"></script>
+</body>
+</html>

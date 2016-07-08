@@ -1,0 +1,35 @@
+<include file="common:header" />
+<body>
+<div style="margin:30px;">
+<form method="post" action="__URL__/import_execlt" enctype="multipart/form-data">
+    <div> <span>请选择导入物品分类：</span>
+      <select name="gc_id">
+        <option value="0">- 请选择 -</option>
+        <volist name="gclist" id="gls">
+            <option value="{$gls.id}">{$gls.name}</option>
+        </volist>
+      </select>
+    </div>
+    <br>
+    <input style="border: none;"  type="file" name="file_stu" />
+    <br><br>
+    <button id="" class="btn btn-sm  btn-warning">确定导入Excel</button>
+</form> <br>
+    <p style="color:#999"><span style="color:#f00;font-size:20px;" class="icon-warning-sign"></span>
+        Excel文件格式仅限于后缀为
+        <span style="color:#F00">[.xls]</span>
+    </p>
+   <!-- <br><br>
+    <a id="fe" href="#">关闭</a>
+    <script>
+        $(function(){
+            var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
+            $('#fe').on('click', function(){
+                parent.layer.close(index); //执行关闭
+            });
+
+        });
+
+    </script>-->
+</div>
+<include file="common:footer" />

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传照片</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <include file="common:hhead" />
+    <link rel="stylesheet" href="__PUBLIC__/Components/bootstrap-fileinput-master/css/fileinput.min.css" />
+    <script src="__PUBLIC__/Components/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+
+</head>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <br>
+            <br>
+
+            <div class="col-sm-6" style="margin:0 auto;float:none;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>上传您的照片</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <p style="font-size:18px;color:#f00;font-family: '微软雅黑';text-align: center;">注：个人照片只能上传一次，请认真仔细检查</p><br/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">姓名：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control m-b" name="user_id" id="user_id">
+                                        <option value="0">- 请选择 -</option>
+                                        <volist name="user" id="userlist">
+                                             <option value="{$userlist.id}">{$userlist.name}-[{$userlist.sname}]</option>
+                                        </volist>
+                                    </select>
+                                </div><div style="clear: both"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">身份证号：</label>
+                                <div class="col-sm-8">
+                                    <input id="identitynum" type="url" class="form-control" name="identitynum">
+                                    <span class=​"help-block m-b-none">需要从数据库核对您的身份证号码</span>​
+                                </div><div style="clear: both"></div>
+                            </div>
+<form role="form" id="form1" method="post" enctype="multipart/form-data" action="{:U('upload_head')}">
+                            <div class="form-group" id="input_load" style="display: none;">
+                                <label class="col-sm-3 control-label">上传照片：</label>
+                                <div class="col-sm-8">
+                                    <input id="input-dim-1" name="inputdim1[]" type="file" multiple class="file-loading" accept="image/*">
+                                </div>
+                            </div>
+<!--412721199212252648-->
+    <input type="hidden" value="" id="uid" name="uid" />
+    <div class="form-group" id="subupload" style="display: none;">
+
+        <div class="col-sm-4 col-sm-offset-3">
+            <br>   <!--<button type=​"button" class=​"btn btn-w-m btn-danger">​btn-danger​</button>​-->
+            <button class="btn btn-w-m btn-warning " >提交</button>
+        </div> <div style="clear: both"></div>
+    </div>
+    <div style="clear: both"></div>
+</form>
+                            <script>
+                                $("#input-dim-1").fileinput({
+                                    fileSingle: '单个文件',
+                                    filePlural: '多个文件',
+                                    browseLabel: '选择文件 &hellip;',
+                                    removeLabel: '删除文件',
+                                    removeTitle: '删除选中文件',
+                                    cancelLabel: '取消',
+                                    cancelTitle: '取消上传',
+                                    uploadLabel: '上传',
+                                    uploadTitle: '上传选中文件',
+                                    uploadUrl: false,
+                                    initialCaption: "请选择您的照片",
+                                    dropZoneTitle: '请选择您的照片',
+                                    msgFilesTooMany: '选择上传的文件数量 <b>({n})</b> 超过最大允许的极限 <b>{m}</b>.请重试您的上传!',
+                                    uploadAsync: true,
+                                    allowedFileExtensions: ["jpg", "png", "gif"],
+                                    minImageWidth: 50,
+                                    maxFileCount: 1,
+                                    showUpload:false,
+                                    minImageHeight: 50
+                                });
+                                $("#input-dim-1").on("fileuploaded", function(event, data) {
+                                    alert(data.response["res"]);
+                                });
+                            </script>
+                            <div class="form-group" id="subOp">
+                                <div class="col-sm-4 col-sm-offset-3">
+                                    <a class="btn btn-w-m btn-warning next" >核对身份信息</a>
+                                </div>
+                            </div>
+<div style="clear: both"></div>
+                        </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+
+        $(".next").click(function(){
+            $('.next').attr('disabled',true);
+            var user_id = $("#user_id").val();
+            var identitynum = $("#identitynum").val();
+            if(user_id == '0'){
+                toastr.error("<i class='remove_d icon-warning-sign'></i>请选择姓名！");
+                $('.next').removeAttr('disabled',true);
+                return false;
+            }
+            if(!identitynum){
+                toastr.error("<i class='remove_d icon-warning-sign'></i>请输入身份证号！");
+                $('.next').removeAttr('disabled',true);
+                return false;
+            }
+            var data = "user_id="+user_id+"&par=head&identitynum="+identitynum
+            AjaxVerify(data);
+        })
+        function AjaxVerify(data) {
+            $.ajax({
+                url: "<?php echo u(CONTROLLER_NAME . '/verifyUser');?>",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function (res) {
+                    if (res.res == 'suc') {
+                        $("#input_load").show();
+                        $("#user_id").attr('disabled',true);
+                        $("#identitynum").attr('disabled',true);
+                        $('#subOp').hide();
+                        $('#subupload').show();
+                        $('#uid').val(res.uid);
+                        toastr.success("<i class='remove_d icon-ok'></i>核对成功，请继续进行下一步完成本次操作！");
+                        return false;
+                    }
+                    if(res.res == 'err') {
+                        toastr.error("<i class='remove_d icon-warning-sign'></i>请检查您的身份证号码是否正确，如有问题请联系人事部！");
+                        $('.next').removeAttr('disabled',true);
+                        return false;
+                    }
+                    if(res.res == 'congfu') {
+                        toastr.success("<i class='remove_d icon-warning-sign'></i>您已经上传过！");
+                        return false;
+                    }
+                }
+            });
+        }
+    </script>
+
+    <include file="common:hfoot" />
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_validate.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:16 GMT -->
+</html>

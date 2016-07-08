@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title>{$index.title}</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<!--[if lt IE 9]>
+<meta http-equiv="refresh" content="0;ie.html" />
+<![endif]-->
+
+	<script src='__PUBLIC__/Admin/assets/js/jquery-2.0.3.min.js'></script>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link href="__PUBLIC__/Admin/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/hplus/css/animate.min.css" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<!-- 表单构建器 -->
+	<link href="__PUBLIC__/Admin/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+	<link href="__PUBLIC__/css/layout.css" rel="stylesheet">
+	<script src='__PUBLIC__/js/common.js'></script>
+
+
+<script>
+	var myDate = new Date();
+	var y = myDate.getFullYear();
+	var m = myDate.getMonth()+1;
+	var d = myDate.getDate();
+	var now = y+"-"+m+"-"+d;
+	function AjaxSubmit(action, data,re) {
+		$.ajax({
+			url: "<?php echo u(CONTROLLER_NAME . '/" + action + "');?>",
+			type: "POST",
+			dataType: "json",
+			data: data,
+			success: function (res) {
+				if (res.result == 'success') {
+					alert("操作成功");
+					if(re == 1){
+						location.reload();
+					}
+				} else {
+					alert("操作失败");
+				}
+			}
+		});
+	}
+</script>
+	<style>*{font-family: '微软雅黑';}
+		.fy_li {
+			margin:20px 0 0 0;
+			padding: 4px;
+		}
+		.fy_li li {
+			padding: 0 5px;
+			float: left;
+			list-style: none;
+			text-align: center;
+			margin: 0 4px;
+			border: 1px solid #ccc;
+		}
+		.fy_li .active {
+			background: #438eb9;
+			color: #fff;
+		}
+	</style>
+	<script src="__PUBLIC__/js/echarts.js"></script>

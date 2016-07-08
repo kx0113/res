@@ -1,0 +1,101 @@
+<include file="ncommon:header" />
+</head>
+<body class="gray-bg">
+<script>
+    //单条数据删除
+     function del(id){
+      //  var id = $(this).attr('data-id');
+        var data = "id="+id+"&status=0&param=1";
+        if(confirm('确定要删除？')) {
+            AjaxSubmit('alterStatus', data,1);
+        }
+        return false;
+    }
+    function AjaxSubmit(action, data,re) {
+        $.ajax({
+            url: "<?php echo u(CONTROLLER_NAME . '/" + action + "');?>",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function (res) {
+                if (res.result == 'success') {
+                    alert("操作成功");
+                    if(re == 1){
+                        location.reload();
+                    }
+                } else {
+                    alert("操作失败");
+                }
+            }
+        });
+    }
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>列表</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">选项1</a>
+                    </li>
+                    <li><a href="#">选项2</a>
+                    </li>
+                </ul>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-md-12">
+                    <!-- Example Classes -->
+                    <div class="example-wrap">
+
+                        <div class="example">
+                            <table data-toggle="table" data-mobile-responsive="true">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>创建时间</th>
+
+                                    <th>创建用户</th>
+
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="vo">
+                                <tr>
+                                    <td >{$vo.id}  </td>
+                                    <td > {$vo.name} </td>
+                                    <td> {$vo.add_time|date="Y-m-d H:i:s",###} </td>
+
+                                    <td>  {$vo.add_user|readUser=###} </td>
+                                    <td>
+                                        <a href="{:U(CONTROLLER_NAME . '/look',array('id'=>$vo['id']))}">[查看详情]</a>
+                                        <a href="{:U(CONTROLLER_NAME . '/editData',array('id'=>$vo['id']))}">[编辑]</a>
+                                        <a   href="javascript:void(0);" onclick="del('{$vo.id}');" class="del" data-id="{$vo.id}">[删除]</a>
+                                    </td>
+                                </tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="fy_li">{$page}</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="ncommon:footer" />
+</body>
+</html>

@@ -1,0 +1,223 @@
+
+<include file="common:header"/>
+	<body>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+			<div class="main-container-inner">
+
+				<div class="main-content">
+					 
+<style>
+.widget-toolbar {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 37px;
+    float: none;
+    position: relative;
+}
+					</style>
+					<div class="page-content">
+						 <div class="row">
+							 
+				<div class="col-xs-12">
+										<div class="widget-box transparent" id="recent-box">
+											<div class="widget-header">
+												 
+
+												<div class="widget-toolbar no-border">
+													<ul class="nav nav-tabs" id="recent-tab">
+																											
+
+														<if condition="$list.reserve_id eq '' ">
+														<li class="active">
+															<a href="{:U(CONTROLLER_NAME . '/add')}">添加储备人员</a>
+														</li>
+														<else />
+														<li class="active">
+															<a href="{:U(CONTROLLER_NAME . '/editData',array('reserve_id'=>$list['reserve_id']))}">[{$list.reserve_name}]-编辑</a>
+														</li>
+														</if>
+
+														 
+													</ul>
+												</div>
+											</div>
+											
+											</div>
+											<br>
+					<form role="form" id="form1" method="post" enctype="multipart/form-data" action="">
+					<div class="form-group">
+						<label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">姓名</label>
+						<input type="hidden" name="reserve_id" id="reserve_id" value="{$list.reserve_id}" />
+						<div class="col-sm-9">
+							<input value="{$list.reserve_name}" type="text" id="reserve_name" placeholder="请输入姓名" name="reserve_name" class="col-xs-10 col-sm-5" />
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+					<!-- station_id -->
+						<div class="form-group">
+							<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+								   for="form-field-1">性别</label>
+
+							<div class="col-sm-9">
+
+								<label style="margin:5px 0 0 0;">
+
+									<input type="radio" name="reserve_sex" value="0"
+									<if condition="$list.reserve_sex eq 0"> checked="checked"</if>
+									/>男
+								</label>
+								<label style="margin:5px 0 0 0;">
+									<input type="radio" name="reserve_sex" value="1"
+									<if condition="$list.reserve_sex eq 1"> checked="checked"</if>
+									/>女
+								</label>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+					<div class="form-group">
+						<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+							   for="form-field-1">申请职位</label>
+						<div class="col-sm-9">
+							<select name="station_id">
+								<volist name="station_list" id="stlist">
+									<option
+									<if condition="$stlist['station_id'] eq $list['station_id']">selected = selected</if>
+									value="{$stlist.station_id}">{$stlist.station_name}</option>
+								</volist>
+							</select>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<!-- reserve_birthday -->
+					<div class="form-group">
+						<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+							   for="form-field-1">出生年月</label>
+						<div class="col-sm-9">
+							<div style="padding:0;" class="input-group date  col-md-5" data-date=""
+								 data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+								 data-link-format="yyyy-mm-dd">
+								<input class="form-control form_date" placeholder="请选择出生年月"
+									   size="16" type="text" name="reserve_birthday"
+								<if condition="$list.reserve_birthday neq '' ">
+									value="{$list.reserve_birthday|date="Y-m-d",###}"
+								</if>
+								>
+    <span class="input-group-addon"><span
+			class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+			class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+
+					<div class="form-group">
+						<label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">追踪人</label>
+						<div class="col-sm-9">
+							<input value="{$list.reserve_trace}" type="text" id="reserve_trace"
+								   placeholder="请输入追踪人" name="reserve_trace" class="col-xs-10 col-sm-5" />
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+
+					<div class="form-group">
+						<label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">联系电话</label>
+						<div class="col-sm-9">
+							<input value="{$list.reserve_tel}" type="text"
+								   placeholder="请输入联系电话" id="reserve_tel" name="reserve_tel" class="col-xs-10 col-sm-5" />
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+						<div class="form-group">
+							<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+								   for="form-field-1">简历URL</label>
+							<div class="col-sm-9">
+<textarea placeholder="请输入简历URL" rows="5" id="reserve_resumeurl"
+		  name="reserve_resumeurl" class="col-xs-10 col-sm-5">{$list.reserve_resumeurl}</textarea>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="form-group">
+							<label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+								   for="form-field-1">备注</label>
+							<div class="col-sm-9">
+<textarea placeholder="请输入备注" rows="5" id="reserve_describe"
+		  name="reserve_describe" class="col-xs-10 col-sm-5">{$list.reserve_describe}</textarea>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+
+									 
+
+									 
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+										
+										<if condition="$list.reserve_id eq '' ">
+												 <a class="sub_f btn btn-info" href="javascript:$('form').submit()"  ><i class="icon-ok bigger-110" ></i>提交</a>
+														<else />
+													 <a class="sub_f btn btn-info" href="javascript:$('form').submit()" ><i class="icon-ok bigger-110" ></i>修改</a>
+														</if>
+
+
+											<if condition="$list.reserve_id eq '' ">
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>	 </if>
+										</div><div style="clear:both;"></div>
+									</div>
+									</form>
+											</div>
+									 
+							 
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				<script>
+
+					<if condition="$list.reserve_id eq ''">
+							$(".form_date").val(now);
+					</if>
+					$().ready(function() {
+
+						// validate signup form on keyup and submit
+						$("#form1").validate({
+							rules: {
+								reserve_name: "required",
+								reserve_tel: "required",
+							},
+							messages: {
+								reserve_name: "姓名不能为空",
+								reserve_tel: "联系电话不能为空",
+							}
+						});
+
+					});
+					$().ready(function() {
+						$("form").validate({
+							submitHandler:function(form){
+								//alert("提交事件!");
+								form.submit();
+							}
+						});
+					});
+				</script>
+			</div><!-- /.main-container-inner -->
+
+
+		</div>
+
+		<include file="common:footer"/>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+
+	</body>
+</html>

@@ -1,0 +1,419 @@
+<include file="common:header" />
+<body>
+<style>
+.btn-purple, .btn-purple:focus {
+    background: none;
+    border-color: none;
+}
+.btn, .btn-default, .btn:focus, .btn-default:focus {
+    background: none;
+    border-color:none;
+}.btn {
+    display: inline-block;
+    color: #FFF!important;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25)!important;
+    background-image: none!important;
+    border:none;
+    border-radius: 0;
+    box-shadow: none!important;
+    -webkit-transition: all ease .15s;
+    transition: all ease .15s;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0;
+    position: relative;
+}
+.sort_1{
+	line-height:30px;
+	float:left;
+	margin:0 10px 0 0px;
+	width:100px;
+
+}
+.sort_121{
+	line-height:30px;
+	float:left;
+	margin:0 10px 0 0px;
+	width:100px;
+	text-align:center;
+}
+
+.sort_2{
+	
+	float:left;
+	margin:0 10px 0 0px;
+	width:200px;
+}
+.sort_3{
+	float:left;
+	margin:0 10px 0 0px;
+	width:150px;
+}
+.sort_4{
+	float:left;
+	margin:0 10px 0 0px;
+	width:250px;
+}
+.sort_5{
+	width:70px;
+	float:left;
+	margin:0 10px 0 0px;
+}
+
+ .append_div1{
+	width:200px;
+	height:100px;
+ }
+ .append_div{ 
+ 	position:absolute;
+	right:10000px; 
+	
+ }
+	.menu_class{
+		float:left;margin:0 0 0 0px;width:120px; text-align:center; line-height:30px;font-size:1.3em;
+	}
+
+.menu_class_2{
+	float:left;margin:0 0 0 0px;width:110px;margin:0 0 0 110px; text-align:center; line-height:30px;
+}
+</style>
+ 
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <div class="main-content">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="widget-box transparent" id="recent-box">
+              <div class="widget-header">
+                <div class="widget-toolbar no-border">
+                  <ul class="nav nav-tabs" id="recent-tab">
+                   
+                    <li class="active"><a href="{:U(CONTROLLER_NAME.'/index')}">类型列表</a></li>
+                    <li><a href="{:U(CONTROLLER_NAME.'/add')}">添加</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          
+            <div class="main-container" id="main-container"> 
+              <script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+              
+              <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  
+</div>
+              <div class="main-container-inner"> <a class="menu-toggler" id="menu-toggler" href="#"> <span
+										class="menu-text"></span> </a>
+                
+                <div class="row">
+                  <div class="col-xs-12"> 
+                    <!-- PAGE CONTENT BEGINS -->
+        <div style=" border-bottom:1px solid #ccc;margin:0 0 15px 0;">
+
+        <p class="sort_1">权重</p>
+        <p  class="sort_2 ">icon图标</p>
+       <p class="sort_3">菜单名称</p>
+        <p class="sort_4">路径</p>
+        <p  class="sort_5">是否启用</p>
+         <p  class="sort_9	" >操作</p>
+        
+        <p style="clear:both;"></p>
+      </div>
+      <volist name="system_menu1" id="menu">
+        <if condition="$menu.parent eq 0">
+            <div style="height:40px;">
+            <p class="menu_class "></p>
+            <input type="hidden" id="id" name="id" value="{$menu.id}" />
+  <input type="text" value="{$menu.sort}" class="sort_1 form-control" name="sort"  id="sort_{$menu.id}" />
+              <input  type="text" class="sort_2 form-control" value="{$menu.icon}" name="icon"  id="icon_{$menu.id}" />
+              <input  type="text" class="sort_3 form-control" value="{$menu.name}" name="name"  id="name_{$menu.id}" style="border:1px solid #f60"  />
+                <input  type="text" class="sort_4 form-control" value="{$menu.path}" name="path"  id="path_{$menu.id}"  />
+               <select <if condition="$menu.status eq 0">style="border:1px solid #333;"</if>
+					   data-id="{$menu.id}" type="text" class="sort_5 form-control" name="status" id="status_{$menu.id}">
+                <option value="1" <if condition="$menu.status eq 1"> selected = selected" </if> >开启</option>
+                <option value="0" <if condition="$menu.status eq 0"> selected = selected" </if> >关闭</option>
+             </select>
+         <!-- href="javascript:void(0);" onclick="save({$menu.id})" -->
+              <if condition="$menu['path'] == '' && $menu['path'] == null ">
+              <div>
+               <a data-id="{$menu.id}" class="save_sub btn btn-success">修改</a>
+               <a href="" onclick="alert('包含二级菜单不能删除');" disabled  class="btn btn-grey id="del_{$menu.id}">删除</a>
+               <!--p style="float:right; line-height:30px;margin:0 10px 0 0;"><span style="color:#F00;">*</span>包含二级菜单不能删除</p-->
+              </div>
+              <else /> 
+              <!--  <a href="javascript:void(0);" onclick="save({$menu.id})" class="btn btn-success">修改</a>   -->
+              <a data-id="{$menu.id}" class="save_sub btn btn-success">修改</a>
+               <a href="javascript:void(0);" onclick="del({$menu.id})" class="btn btn-pink save_del">删除</a>
+                 </if> 
+             </div>
+            <volist name="system_menu1" id="menusub">
+<eq name="menusub.parent" value="$menu.id">
+<div style="height:40px;">
+<p class=" sort_121">|____<!--{$menu.name}下菜单--></p>
+<input type="text" value="{$menusub.sort}"  name="sort"  id="sort_{$menusub.id}" class="sort_1 form-control" />
+ <input type="text" class="sort_2 form-control" value="{$menusub.icon}"  name="icon"  id="icon_{$menusub.id}" />
+<input class="form-control sort_3" type="text" value="{$menusub.name}" name="name"  id="name_{$menusub.id}" />
+<input type="text" class="sort_4 form-control" value="{$menusub.path}" name="path"  id="path_{$menusub.id}" />
+<select <if condition="$menusub.status eq 0">style="border:1px solid #333;"</if>  class="form-control sort_5"  name="status" id="status_{$menusub.id}">
+   <option value="1" <if condition="$menusub.status eq 1"> selected = selected" </if> >开启</option>
+   <option value="0" <if condition="$menusub.status eq 0"> selected = selected" </if> >关闭</option>
+</select>
+                <a href="# " class="save_sub btn btn-purple" data-id="{$menusub.id}">修改</a>
+                 <a href="#" class="btn btn-pink" onclick="del({$menusub.id})" data-id="{$menusub.id}" id="del_{$menu.id}">删除</a>
+                  <p style="clear:both;"></p>
+                </div>
+	<volist name="system_menu" id="menusub1">
+                  <eq name="menusub1.parent" value="$menusub.id">
+                  <div style="height:40px;">
+                   <p class="menu_class_2 ">|____
+					  <!-- {$menusub.name}下菜单--></p>
+                  <input  type="text" class="sort_1 form-control" value="{$menusub1.sort}" name="sort" id="sort_{$menusub1.id}" />
+                  <input type="text" class="sort_2 form-control" value="{$menusub1.icon}" name="icon" id="icon_{$menusub1.id}"  />
+                    <input type="text" class="sort_3 form-control" value="{$menusub1.name}" name="name" id="name_{$menusub1.id}" />
+                     <input  type="text" class="sort_2 form-control" value="{$menusub1.path}"  name="path" id="path_{$menusub1.id}" />
+                     <select  class="sort_5 form-control" name="status" id="status_{$menusub1.id}" >
+                <option value="1" <if condition="$menusub1.status eq 1"> selected = selected" </if> >是</option>
+                <option value="0" <if condition="$menusub1.status eq 0"> selected = selected" </if> >否</option>
+             </select>
+             <div class="append_div">
+             <div class="append_div1"><br><br>
+      	<a style="margin:0 0 0 20px;" href="#" class="save_del btn btn-pink"  data-id="{$menusub1.id}">删除</a>
+      	<a class="btn btn-white">取消</a>
+      </div></div>
+					  <a href="#" class="save_sub btn btn-purple" data-id="{$menusub1.id}">修改</a>
+					  <p style="clear:both;"></p>
+                    </div>
+                  </eq>
+                </volist>
+                
+              </eq>
+            </volist><hr/>
+          </if>
+        
+      </volist>
+      
+      <div style="width:500px;margin:0 auto;"> </div>
+      <script>
+		  function del(id){
+			  alert('此功能已被开发人员禁用，如需开通请联系开发人员！');
+			  return false;
+			  var data = 'id='+id;
+			  if(confirm('确定要删除吗？')){
+				  $.ajax({
+					  url:"{:u(CONTROLLER_NAME . '/del')}",
+					  type:"POST",
+					  dataType:"json",
+					  data:data,
+					  success:function(res){
+						  if(res.result == 'success1'){
+							  alert("操作成功");
+							  window.location.reload();
+						  }else{
+							  alert("操作失败");
+						  }
+					  }
+
+				  });
+
+			  }
+
+		  }
+     $('.append_div').hide();
+     var opts = {
+				"closeButton": true,
+				"debug": false,
+				"positionClass": "toast-top-full-width",
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			};
+      $('.save_sub').click(function(){
+		  $('.save_sub').attr("disabled","disabled");
+    	  var id = $(this).attr('data-id');
+   		// show_loading_bar(100);
+   		  if($("#name").val() ==  "")
+   		 {
+   			 toastr.error("<i class=fa-info></i>请输入名称内容", opts);
+   			 $("#name").focus();
+   			 return false;
+   		 }
+   		
+   		 if($("#icon").val() ==  "")
+   		 {
+   			 toastr.error("<i class=fa-info></i>请输入图片class", opts);
+   			 $("#icon").focus();
+   			 return false;
+   		 }  
+   		var data = "id="+id+"&name="+$("#name_"+id).val()+"&path="+$("#path_"+id).val()+"&status="+$("#status_"+id).val()+"&icon="+$("#icon_"+id).val()+"&sort="+$("#sort_"+id).val();
+   	 $.ajax({
+   		url:"{:u(CONTROLLER_NAME . '/updata')}",
+   		type:"POST",
+   		dataType:"json",
+   		data:data,
+   		success:function(res){
+   			if(res.result == 'success'){
+   			 alert("操作成功");
+				$('.save_sub').removeAttr('disabled');
+   				 window.location.reload();
+   			}else{
+   				alert("操作失败");
+				$('.save_sub').removeAttr('disabled');
+   			    window.location.reload();
+   			}
+   		}
+   	 
+   	 });
+      });
+     
+
+      $('.save_del').click(function(){
+    	  var id = $(this).attr('data-id');
+    	  //alert(id);
+   	//	 show_loading_bar(100);
+   		  var data = "id="+id+"&name="+$("#name_"+id).val()+"&path="+$("#path_"+id).val()+"&status="+$("#status_"+id).val()+"&icon="+$("#icon_"+id).val()+"&sort="+$("#sort_"+id).val();
+   	 $.ajax({
+   		url:"{:u('/admin/menu/del')}",
+   		type:"POST", 
+   		dataType:"json",
+   		data:data,
+   		success:function(res){
+   			if(res.result == 'success1'){
+   				 alert("删除成功");
+   				 window.location.reload();
+   			}else{
+   			 alert("删除失败");
+   			}
+   		}
+   	 
+   	 });  		    
+      });  
+
+  
+</script> 
+ 
+                   
+                    <!-- /.table-responsive --> 
+                    
+                    <script type="text/javascript">
+                    //搜索表单判断
+                    /*$('.search').click(function () { 
+                    	var name = $('#name').val();
+                    	if(name == ""){
+                    		alert('请输入您要搜索的数据！');
+                    		$('#name').focus();
+                    		return false;
+                    	}
+                     });*/
+                    //checkbox全选
+                    $(".chkall").click(function () { 
+                    	var checked = $(this).prop("checked");
+                    	$('.box').prop("checked",checked);
+                    });
+                  //全部删除按钮为空判断
+                    $(".all_val").click(function () { 
+                    	var list = new Array();
+                    	$("input[id='style_val']:checked").each(
+								function() {
+									list.push($(this).val());
+								 }); 
+                    	if(list == ''){
+                    		alert('请选择您要删除的数据！');
+                    		return false;
+                    	}
+                    });
+                    //执行全部删除方法
+                    $(".all_val1").click(function () { 
+                    	var list = new Array();
+                    	$("input[id='style_val']:checked").each(
+								function() {
+									list.push($(this).val());
+								 }); 
+                    	 var data = "list="+list.join(',');
+                    	  $.ajax({
+            			     url:"{:u(CONTROLLER_NAME . '/previous_delete')}",
+            			     type:"POST",
+            			     dataType:"json",
+            			     data:data,
+            			     success:function(res){
+            			    if(res.result == 'success1'){
+            			        //  alert("操作成功");
+            			            location.reload() 
+            			         // location.href="{:u('/home/index/cc')}"
+            			         }else{
+            			        alert("操作失败");
+            			      }
+            			     
+            			     }
+            			   });
+                    	 
+                    });
+       //获取删除id
+	  $('.del').click(function(){
+		  var id = $(this).attr('data-id');
+		  $('.del_id').attr('data-cid',id);
+	  });
+	  //执行单条数据删除方法
+	  $('.del_id').click(function(){
+		  var id = $(this).attr('data-cid');
+		  $.ajax({
+			     url:"{:u(CONTROLLER_NAME . '/previous_delete')}",
+			     type:"POST",
+			     dataType:"json",
+			     data:$(".form-horizontal").serialize()+"&id="+id,
+			     success:function(res){
+			    if(res.result == 'success'){
+			           location.reload() 
+			         }else{
+			        alert("操作失败");
+			      }
+			     
+			     }
+			    });
+		 // $('.del_id').attr('data-cid',id);
+	  });
+	  //状态开关
+	  function show_change(id){
+		  var show = document.getElementById("show_"+id).checked == true ? '1':'0';
+		   $.ajax({
+		    url:"{:U(CONTROLLER_NAME . '/show_change')}", // 表单提交的地址
+		    type: 'POST',
+		    dataType: 'json',
+		    data:'id='+id+'&status='+show, // 表单提交的数据
+		    success:function(res){
+			 }
+		  });
+		}
+		 </script> 
+                    
+                    <!-- PAGE CONTENT ENDS --> 
+                  </div>
+                  <!-- /.col --> 
+                </div>
+                <!-- /.row --> 
+                
+              </div>
+              <!-- /.main-container-inner --> 
+              
+            </div>
+            <!-- /.main-container --> 
+          </div>
+        </div>
+        <!-- /.row --> 
+      </div>
+      <!-- /.page-content --> 
+    </div>
+    <!-- /.main-content --> 
+    
+  </div>
+  <!-- /.main-container-inner --> 
+  
+   </div>
+<include file="common:footer" />

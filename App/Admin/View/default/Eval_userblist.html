@@ -1,0 +1,134 @@
+<include file="common:header" />
+<body>
+<style>
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        min-height: 100%;
+        padding: 0;
+    }
+</style>
+<div class="main-container" id="main-container">
+    <div class="main-container-inner">
+        <div class="main-content">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="widget-box transparent" id="recent-box">
+                            <div class="widget-header">
+                                <div class="widget-toolbar no-border">
+                                    <ul class="nav nav-tabs" id="recent-tab">
+                                        <li class="active"><a href="{:U(CONTROLLER_NAME . '/userblist')}">UserBehavior</a></li>
+                                        <li class=""><a href="{:U(CONTROLLER_NAME . '/userbehavior',array('par'=>1))}">全部</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="main-container" id="main-container">
+                            <script type="text/javascript">
+                                try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+                            </script>
+
+                            <div class="main-container-inner">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="main-container" id="main-container">
+
+
+                                            <table cellspacing="0" width="100%" class="table table-small-font table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>编号</th>
+                                                    <th data-priority="1">用户账号</th>
+                                                    <th data-priority="3">账号用户组</th>
+                                                    <th data-priority="3">姓名</th>
+                                                    <th data-priority="3">状态</th>
+                                                    <th data-priority="3">创建人</th>
+                                                    <!--	<th data-priority="3">最后一次修改时间</th>-->
+                                                    <th data-priority="3">注册时间</th>
+                                                    <th data-priority="3">操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <volist  name="admins" id="admin">
+                                                    <tr>
+                                                        <if condition="$admin.id neq '1'">
+                                                        <td>{$admin.id}</td>
+                                                        <td>{$admin.account}</td>
+                                                        <td> <if condition="$admin.group_id eq '0'">
+                                                            未分配
+                                                            <else />
+                                                            {$admin.group_id|readGroup=###}
+                                                        </if></td>
+                                                        <td>{$admin.nickname}</td>
+                                                        <td>
+                                                            <switch name="admin.status" >
+                                                                <case value="1" >正常</case>
+                                                                <case value="2"><span style="color:#6f3cc4">冻结</span></case>
+                                                                <case value="3"><span style="color:#F00">删除</span></case>
+                                                                <case value="4"><span style="color:#FF3399">未审核</span></case>
+                                                                <default />未知错误
+                                                            </switch>
+                                                        </td>
+                                                        <td><if condition="$admin.add_user eq '0'">
+                                                            注册页注册
+                                                            <else />
+                                                            {$admin.add_user|readUser=###}
+                                                        </if>
+                                                        </td>
+                                                        <!--<td>{$admin.updat_time|date="Y-m-d  H:i:s",###} </td>-->
+                                                        <td>{$admin.create_time|date="Y-m-d  H:i:s",###} </td>
+                                                        <td>
+
+                                                                [<a class="" href="{:u(CONTROLLER_NAME . '/userbehavior',array('id'=>$admin['id']))}">查看行为</a>]
+
+                                                           </td> </if>
+                                                    </tr>
+                                                </volist>
+
+                                                </tbody>
+                                            </table>
+
+
+
+
+                                            <ul  class="fy_li">
+                                                {$page}
+                                            </ul>
+
+                                            <div class="page-loading-overlay">
+                                                <div class="loader-2"> </div>
+
+
+
+                                            </div>
+                                            <!-- /.main-container-inner -->
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                            </div>
+                            <!-- /.main-container-inner -->
+
+                        </div>
+                        <!-- /.main-container -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+        <!-- /.main-content -->
+
+    </div>
+    <!-- /.main-container-inner -->
+
+</div>
+<include file="common:footer" />

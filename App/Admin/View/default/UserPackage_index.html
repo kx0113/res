@@ -1,0 +1,70 @@
+<include file="ncommon:header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+<style>
+    .tac {
+        text-align: center;
+    }
+    .packagewidth{width:60px;text-align: center;}
+</style>
+
+<form name="myform" action="<?php echo U('listorder')?>" method="post">
+    <div class="col-sm-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>菜单管理</h5>
+
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="table_basic.html#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="table_basic.html#">选项1</a>
+                        </li>
+                        <li><a href="table_basic.html#">选项2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content"><br>
+                <a  href="{:U(CONTROLLER_NAME . '/add')}" type="button" class="btn btn-w-m btn-success">添加</a><br><br>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="tac"><input type="checkbox" /></th>
+                        <th class="tac">权重</th>
+                        <th class="tac">ID</th>
+                        <th class="tac">权限功能名称</th>
+                        <th class="tac">类型</th>
+                        <th class="tac">更改状态</th>
+                        <th class="tac">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {$html_tree}
+                    <tr>
+                        <td align="center"> <button type="submit" value="sort"  name="sort" class="btn btn-primary">排序</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>    </div>
+</div>
+<include file="ncommon:footer"/>
+</body>
+</html>

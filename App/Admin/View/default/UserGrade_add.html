@@ -1,0 +1,125 @@
+
+<include file="common:header"/>
+	<body> 
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+
+				 
+
+				<div class="main-content">
+					 
+<style>
+.widget-toolbar {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 37px;
+    float: none;
+    position: relative;
+}
+					</style>
+					<div class="page-content">
+						 <div class="row">
+							 
+				<div class="col-xs-12">
+							 
+										<div class="widget-box transparent" id="recent-box">
+											<div class="widget-header">
+												 
+
+												<div class="widget-toolbar no-border">
+													<ul class="nav nav-tabs" id="recent-tab">
+														<if condition="$list.id eq '' "> 
+														<li class="active">
+															<a href="{:U(CONTROLLER_NAME . '/add')}">添加部门</a>
+														</li>
+														<else />
+														<li class="active">
+															<a href="#">修改</a>
+														</li>
+														</if>
+
+														 
+													</ul>
+												</div>
+											</div>
+											
+											</div>
+											<br>
+
+<form class="form-horizontal" role="form"  id="form1" enctype="multipart/form-data" action="" method="post">
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="form-field-1">部门名称</label>
+						<input type="hidden" name="id" id="id" value="{$list.id}" />
+						<div class="col-sm-9">
+							<input value="{$list.name}" type="text" id="name" placeholder="" name="name" class="col-xs-10 col-sm-5" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="form-field-1">部门负责人</label>
+						<div class="col-sm-9">
+							<input value="{$list.principal}" type="text" id="principal" placeholder="" name="principal" class="col-xs-10 col-sm-5" />
+						</div>
+					</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">权重</label>
+										<div class="col-sm-9">
+											<input  value="{$list.sort}" type="text" id="sort" placeholder="" name="sort" class="col-xs-10 col-sm-5" />
+										<p class="col-xs-10 col-sm-12" style="padding:0;color:#999;"><span style="color:#f00;">*</span>数字越大，表示权重级别越高。</p>
+										</div>
+									</div>
+	<div class="clearfix form-actions">
+		<div class="col-md-offset-3 col-md-9">
+
+			<if condition="$list.id eq '' ">
+				<a class="sub_f btn btn-info" href="javascript:$('#form1').submit()"><i class="icon-ok bigger-110" ></i>提交</a>
+				<else />
+				<a class="sub_f btn btn-info" href="javascript:$('#form1').submit()"><i class="icon-ok bigger-110" ></i>修改</a>
+			</if>
+			<if condition="$list.id eq '' ">
+				&nbsp; &nbsp; &nbsp;
+				<button class="btn" type="reset">
+					<i class="icon-undo bigger-110"></i>
+					重置
+				</button>	 </if>
+		</div><div style="clear:both;"></div>
+	</div>
+	</form>
+											</div>
+									 
+							 
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+			</div><!-- /.main-container-inner -->
+
+		</div>
+		<script>
+			$().ready(function() {
+				// validate the comment form when it is submitted
+				$("#commentForm").validate();
+
+				// validate signup form on keyup and submit
+				$("#form1").validate({
+					rules: {
+						name: "required",
+						principal: "required",
+					},
+					messages: {
+						name: "不能为空",
+						principal: "不能为空",
+					}
+				});
+			});
+			$.validator.setDefaults({
+				submitHandler: function(form) {
+					$('.sub_f').attr("disabled","disabled");
+					form.submit();
+				}
+			});
+		</script>
+<include file="common:footer" />

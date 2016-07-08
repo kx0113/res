@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:52 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <include file="common:hhead" />
+    <script>if (window.top !== window.self) {
+        window.top.location = window.location;
+    }</script>
+
+</head>
+
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <br><br><br><br><br>
+        <h3>欢迎注册</h3>
+        <p>创建一个人事部后台新账户</p>
+        <div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="account" id="account" placeholder="请输入用户名" required="">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入您的姓名" name="nickname" id="nickname" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="请输入密码" name="r_password" id="r_password"
+                       required="">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="请再次输入密码" name="re_password" id="re_password"
+                       required="">
+            </div>
+
+            <button type="submit" onclick="AjaxResterInfo();" class="btn btn-primary block full-width m-b">注 册</button>
+
+            <p class="text-muted text-center">
+                <small>已经有账户了？</small>
+                <a href="{:U('Login/login')}">点此登录</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    function AjaxResterInfo() {
+        var nickname = $('#nickname').val();
+        var account = $('#account').val();
+        var r_password = $('#r_password').val();
+        var re_password = $('#re_password').val();
+        if (!account) {
+            toastr.error("<i class='remove_d  icon-warning-sign'></i>请输入您的用户名！");
+            return false;
+        }
+        if (!nickname) {
+            toastr.error("<i class='remove_d  icon-warning-sign'></i>请输入您的姓名！");
+            return false;
+        }
+        if (!r_password && !re_password) {
+            toastr.error("<i class='remove_d  icon-warning-sign'></i>请输入您的密码！");
+            return false;
+        }
+        if (r_password !== re_password) {
+            toastr.error("<i class='remove_d  icon-warning-sign'></i>两次密码输入不一致！");
+            return false;
+        } else {
+            $('.re_5').attr('disabled', true);
+        }
+        var data = "nickname=" + nickname + "&account=" + account + "&r_password=" + r_password + "&re_password=" + re_password;
+        $.ajax({
+            url: "{:u(CONTROLLER_NAME . '/register')}",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function (res) {
+                if (res.result == 'success') {
+                    toastr.success("<i class='remove_d  icon-warning-sign'></i>操作成功,等待管理员审批！");
+                }
+                if (res.result == 'error') {
+                    toastr.error("<i class='remove_d  icon-warning-sign'></i>操作失败,请稍后重试！");
+                    location.reload();
+                }
+                if (res.result == 're_password') {
+                    toastr.error("<i class='remove_d  icon-warning-sign'></i>两次密码输入不一致！");
+                    $('.re_5').removeAttr('disabled');
+                }
+                if (res.result == 'isfind') {
+                    toastr.error("<i class='remove_d  icon-warning-sign'></i>已存在的用户名！");
+                    $('.re_5').removeAttr('disabled');
+                }
+            }
+        });
+    }
+</script>
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:52 GMT -->
+</html>

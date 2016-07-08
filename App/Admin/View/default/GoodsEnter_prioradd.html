@@ -1,0 +1,168 @@
+
+<include file="common:header"/>
+<body>
+
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="main-container-inner">
+
+
+
+        <script>
+            function getGoodsClass(){
+                $('#gc_id').attr('data-id','');
+                var unit ='';
+                var quantity= '';
+                var gc_name = '';
+                var gc_id = '';
+                var ge_id = $("#ge_id").val();
+                if(ge_id == '0'){
+                    alert('请选择物品');
+                    return false;
+                }
+                var data = 'par=1&id='+ge_id;
+                $.ajax({
+                    url: "<?php echo u(CONTROLLER_NAME . '/ajaxGetClass'); ?>",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        var result = eval(data.res);
+                        var gclass = eval(data.class);
+                        gc_name += gclass['name'];
+                        gc_id += gclass['id'];
+                        $('#gc_id').attr('data-id',gc_id);
+                        $("#gc_id").find("option:selected").text(gc_name);
+                        unit += result['unit'];
+                        quantity += result['quantity'];
+                        $('#unit').val(unit);
+                        $("#R_quantity").val(quantity);
+                    },
+                    error:function(){
+                        alert('错误!');
+                    }
+                });
+            }
+            function subDate(){
+                var ge_id = $("#ge_id").val();
+                var quantity = $("#quantity").val();
+                var gc_id = $('#gc_id').attr('data-id');
+                if(ge_id == '0'){
+                    alert('请选择物品');
+                    return false;
+                }
+                var data = 'par=2&id='+ge_id+'&quantity='+quantity+"&gc_id="+gc_id;
+                $.ajax({
+                    url: "<?php echo u(CONTROLLER_NAME . '/ajaxGetClass'); ?>",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: function (data) {
+                        if(data.res == 'suc'){
+                            alert('操作成功');
+                            location.href="{:U('GoodsEnter/index')}";
+                        }else{
+                            alert('操作失败');
+                        }
+                    },
+                    error:function(){
+                        alert('错误!');
+                    }
+                });
+            }
+
+        </script>
+        <div class="main-content">
+            <script type="text/javascript">
+
+            </script>
+            <style>
+                .widget-toolbar {
+                    display: inline-block;
+                    padding: 0 10px;
+                    line-height: 37px;
+                    float: none;
+                    position: relative;
+                }
+                #gc_id{background: #eee;}
+            </style>
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <br>
+                        <div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">物品名称</label>
+                                <input type="hidden" name="id" id="id" value="{$list.id}"/>
+                                <div class="col-sm-9">
+                                   <select name="ge_id" id="ge_id" onchange="getGoodsClass();">
+                                       <option value="0">- 请选择物品名称 -</option>
+                                       <volist name="geList" id="gelist_vo">
+                                         <option value="{$gelist_vo.id}">[{$gelist_vo.id}]-{$gelist_vo.name}</option>
+                                       </volist>
+                                   </select>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+
+                                <label style="text-align:right" class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-1">物品类别</label>
+
+                                <div class="col-sm-9">
+                                    <select data-id="" disabled name="gc_id" id="gc_id">
+                                        <option>- 请先选择物品 -</option>
+                                    </select>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">单位</label>
+                                <div class="col-sm-9">
+                                    <input disabled value="" type="text" id="unit" placeholder="" name="unit"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">已入库数量数量</label>
+                                <div class="col-sm-9">
+                                    <input disabled value=" " type="text" id="R_quantity" placeholder="" name="R_quantity"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">数量</label>
+                                <div class="col-sm-9">
+                                    <input value="{$list.quantity}" type="text" id="quantity" placeholder="请输入数量" name="quantity"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <if condition="$list.id eq '' ">
+                                        <a onclick="subDate();" class="  btn btn-info" href=""><i
+                                                class="icon-ok bigger-110"></i>提交</a>
+                                        <else/>
+                                        <a class="sub_f btn btn-info" href="javascript:$('form').submit()"><i
+                                                class="icon-ok bigger-110"></i>修改</a>
+                                    </if>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container-inner -->
+
+</div>
+<include file="common:footer" />

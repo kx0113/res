@@ -1,0 +1,164 @@
+<include file="common:header" />
+<body>
+ 
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <div class="main-content">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="widget-box transparent" id="recent-box">
+              <div class="widget-header">
+                <div class="widget-toolbar no-border">
+                  <ul class="nav nav-tabs" id="recent-tab">
+                   
+                    <li class="active"><a href="{:U(CONTROLLER_NAME.'/index')}">部门列表</a></li>
+                 <!--   <li><a href="{:U(CONTROLLER_NAME.'/add')}">添加</a> </li>-->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="main-container" id="main-container"> 
+              <script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+              <div>
+                <form action="{:u(CONTROLLER_NAME . '/index')}">
+                  <input style="margin: 0px 0 0 0; float: left;" value="{$name}"
+											type="text" id="name" placeholder="" name="name" />
+                  <a class="search" href="javascript:$('form').submit()">搜索</a>
+                  <div style="clear: both;"></div>
+                </form>
+              </div>
+              <br>
+
+              <div class="main-container-inner">
+
+                <div class="row">
+                  <div class="col-xs-12"> 
+                    <!-- PAGE CONTENT BEGINS -->
+                   <!--  <a href="#" class="all_val"  data-toggle="modal" data-target="#myModal2">批量删除</a>-->
+                    <div class="table-responsive">
+                      <table id="sample-table-1"
+						 class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+
+                            <td>ID</td>
+                            <td>部门名称</td>
+                            <td>部门负责人</td>
+                            <td>权重</td>
+                            <td>是否启用</td>
+                            <td>创建时间</td>
+                            <td>操作</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <volist name="list" id="vo">
+                            <tr>
+                              <input type="hidden" name="id" id="id" value="{$vo.id}" />
+                              <td>{$vo.id}</td>
+                              <td>{$vo.name}</td>
+                              <td>{$vo.principal}</td>
+                              <td class="hidden-480">{$vo.sort}</td>
+                              <td><label> <input name="status"
+										class="ace ace-switch ace-switch-6" type="checkbox"
+										id="show_{$vo.id}"
+										onChange="show_change('{$vo['id']}')"
+
+                                  <if condition="$vo.status eq 1 ">checked="checked"
+                                    <else />
+                                  </if>
+                                  /> <span class="lbl"></span> </label></td>
+                              <td class="hidden-480"> {$vo.date|date="Y-m-d H:i:s",###} </td>
+                              <td> <a href="{:u(CONTROLLER_NAME . '/EditData',array('id'=>$vo['id']))}">[编辑]</a></td>
+                            </tr>
+                          </volist>
+                        </tbody>
+                      </table>
+                      <p style="text-align: center; color: #ccc;">{$not_found}</p>
+                      <ul  class="fy_li">
+                        {$page}
+                      </ul>
+                    </div>
+                   
+                    <!-- /.table-responsive -->
+                    <script type="text/javascript">
+                      //全选checkbox
+                      function allcheckbox(obj){
+                        checkAll(obj,'.box');
+                      }
+                      //执行批量删除
+                      $(".all_val").click(function () {
+                        var list_id =getcheckVal('checkbox_volist');
+                        if (list_id == '') {
+                          alert('请选择数据！');
+                          return false;
+                        }
+                        if(confirm('确定要删除？')) {
+                          var data = "list=" + list_id.join(',') + "&status=0";
+                          AjaxSubmit('delete_data', data,1);
+                        }
+                        return false;
+                      });
+                      //单条数据删除
+                      $('.del').click(function(){
+                        var station_id = $(this).attr('data-id');
+                        var data = "station_id="+station_id+"&status=0";
+                        if(confirm('确定要删除？')) {
+                          AjaxSubmit('delete_data', data,1);
+                        }
+                        return false;
+                      });
+                    </script>
+<script type="text/javascript">
+
+//checkbox全选
+$(".chkall").click(function () {
+var checked = $(this).prop("checked");
+$('.box').prop("checked",checked);
+});
+//执行全部删除方法
+$(".all_val").click(function () {
+batchDel("style_val","delete_data");
+});
+
+//执行单条数据删除方法
+$('.del').click(function(){
+var id = $(this).attr('data-id');
+OneDelData("delete_data",id);
+});
+
+//状态开关
+function show_change(id){
+  var status = document.getElementById("show_" + id).checked == true ? '1' : '0';
+  var data = "id="+id+"&status="+status;
+  AjaxSubmit('show_change', data,1);
+}
+</script>
+                    
+                    <!-- PAGE CONTENT ENDS --> 
+                  </div>
+                  <!-- /.col --> 
+                </div>
+                <!-- /.row --> 
+                
+              </div>
+              <!-- /.main-container-inner --> 
+              
+            </div>
+            <!-- /.main-container --> 
+          </div>
+        </div>
+        <!-- /.row --> 
+      </div>
+      <!-- /.page-content --> 
+    </div>
+    <!-- /.main-content --> 
+    
+  </div>
+  <!-- /.main-container-inner --> 
+  
+    </div>
+<include file="common:footer" />

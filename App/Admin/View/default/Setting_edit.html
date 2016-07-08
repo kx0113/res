@@ -1,0 +1,200 @@
+<include file="common:header" />
+<body>
+ 
+
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <div class="main-content">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="widget-box transparent" id="recent-box">
+              <div class="widget-header">
+                <div class="widget-toolbar no-border">
+                  <ul class="nav nav-tabs" id="recent-tab">
+                   
+                    <li><a href="{:U(CONTROLLER_NAME.'/index')}">管理员列表</a></li>
+                    <li class="active"><a href="{:U(CONTROLLER_NAME.'/edit')}">编辑</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="main-container" id="main-container"> 
+              <script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+       <script type="text/javascript">
+		 $(document).ready(function(){
+			 
+			 $("#js_submit_role").click(function(){
+				 if($("#real_name").val() ==  "")
+				 {
+					 alert("姓名不能为空");
+					 $("#real_name").focus();
+					 return false;
+				 }
+				 
+				 if($("#account1").val() ==  "")
+				 {
+					 alert("账号不能为空");
+					 $("#account1").focus();
+					 return false;
+				 }
+				  
+				 var data ="real_name="+$("#real_name").val()+"&account1="+$("#account1").val()+"&status="+$("#status").val()+"&id="+$("#id").val()+"&action=update";
+				  
+				 $.ajax({
+					 url:"{:u(CONTROLLER_NAME . '/edit')}",
+					 type:"POST",
+					 dataType:"json",
+					 data:data,
+					 success:function(res){
+						  if(res.result == 'success'){
+							 alert("保存成功");
+							 location.href="{:u(CONTROLLER_NAME . '/index')}";
+						 }else{
+							 alert("保存失败");
+						 }
+						 
+					 }
+				 });
+				 
+				 return false;
+			 });
+		 });
+		 
+		 </script>
+		  <div style="width:400px;margin:0 0;">
+				<form role="form" id="form1" method="post" enctype="multipart/form-data" action="">
+			<div class="form-horizontal">
+<input type="hidden" name="action" value="update" />
+				<div class="margin100 control-group">
+					<input type="hidden" class="" value="{$admin.id}" name="id" id="id">
+					<label class="control-label">姓名</label>
+					<div class="controls">
+						<input type="text" class="fl dpb form-control width250 " id="real_name" name="real_name"
+							placeholder="姓名" maxlength="20" value="{$admin.real_name}"> 
+							<span class="colorf00 dpb fl lh30 margin010">*必填 </span>  
+							 <div class="clb"></div>
+					</div>
+				</div>
+				<div class="margin100 control-group">
+					<label class="control-label">账号</label>
+					<div class="controls">
+						<input type="text" class="fl dpb form-control width250 " id="account1" name="account1"
+							placeholder="登录账号" maxlength="20" value="{$admin.account}">
+							 <span class="colorf00 dpb fl lh30 margin010">*必填 </span>
+							 <div class="clb"></div>  
+					</div>
+				</div><div class="margin100 control-group">
+<div class="controls">
+ 
+  <label style="text-align:left" class="col-sm-12 control-label " for="form-field-1" style="text-align:right">头像</label>
+ 
+													 <div class="col-sm-9">
+<div class="" style="width:300px;">
+				
+	 <div id="upload_zizhi" style="padding: 0; cursor: pointer;"
+								class="upload"></div>
+							<div id="imgdiv_zizhi" style=" padding: 0"
+								class="upload">
+
+								 
+									<img id="imgShow_zizhi" src="{$admin.head}" width="100" height="100">
+								 
+
+ <div id="cancel_zizhi"
+									style="width: 50px; cursor: pointer">
+
+								</div>
+								<input type="hidden" id="ifuploadback_zizhi"
+									name="ifuploadback_zizhi" value="0" />
+
+							</div>
+						 
+<div class=""> <p>支持JPG、PNG、BMP、GIF格式</p> </div>
+					 
+					<div style="background:url(__PUBLIC__/img/xuanze.png) no-repeat; width: 200px; margin: 0;">
+						<input type="file" id="certificate" name="certificate"
+							style="height: 44px; width: 113px; filter: alpha(opacity : 0); opacity: 0; cursor: pointer;"
+							onblur="checknewpaaa()" />
+
+					</div>
+				</div>	</div>
+				
+				<div style="clear:both;"></div>
+			
+				  </div>  </div> 
+				 
+				 
+				<div class="margin100 control-group">
+					<label class="control-label">状态</label>
+					<div class="controls">
+						<select name="status" id="status" class="fl form-control width250">
+							<option value="1" <eq name="admin.status" value="1"> selected</eq>>正常</option>
+							<option value="2" <eq name="admin.status" value="2"> selected</eq>>冻结</option>
+							<option value="3" <eq name="admin.status" value="3"> selected</eq>>删除</option>
+						</select> 	 <span class="colorf00 dpb fl lh30 margin010">*必填 </span>
+						 <div class="clb"></div>  
+					</div>
+				</div>
+			</div> 
+			<br>
+			<div class="tool_area">
+				<div class="tool_bar  ">
+					
+					 <a class="sub_f btn btn-info js_submit_role" href=" "  ><i class="icon-ok bigger-110" ></i>提交</a>
+						 <a href="javascript:history.go(-1)" class="btn btn-pink">取消</a>
+					 
+				</div>
+			</div>
+			</form>
+		 </div>
+	  </div>
+            <!-- /.main-container --> 
+          </div>
+        </div>
+        <!-- /.row --> 
+      </div>
+      <!-- /.page-content --> 
+    </div>
+    <!-- /.main-content --> 
+    
+  </div>
+  <!-- /.main-container-inner --> 
+    <script type="text/javascript">
+
+		$(function() {
+
+			new uploadPreview({
+				UpBtn : "certificate",
+				DivShow : "imgdiv_zizhi",
+				ImgShow : "imgShow_zizhi"
+			});
+
+			$("#certificate").change(function() {
+				$("#imgdiv_zizhi").show();
+				$("#upload_zizhi").hide();
+				$("#ifuploadback_zizhi").val("1");
+			});
+
+			$("#cancel_zizhi").click(function() {
+				$("#imgdiv_zizhi").hide();
+				$("#upload_zizhi").show();
+				$("#ifuploadback_zizhi").val("0");
+			});
+
+			 
+		   	  $(".bottom2").next().hide();
+			  $(".user_left>ul>li").eq(0).removeClass("a");
+			  $(".user_left>ul>li").eq(5).addClass("a");
+
+		});
+	</script>
+   </div>
+<include file="common:footer" />
+
+
+ 
+

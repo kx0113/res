@@ -1,0 +1,204 @@
+.fy_li {
+    padding: 4px;
+}
+
+.fy_li a {
+    display: block;
+}
+
+.fy_li a:hover {
+    text-decoration: none;
+}
+
+.fy_li .active {
+    background: #438eb9;
+    color: #fff;
+}
+
+.all_val {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: #d15b47;
+    display: block;
+    margin: 0 0 10px 0;
+}
+
+.all_val:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.all_val:link {
+    color: #fff;
+}
+
+.all_val:visited {
+    color: #fff;
+}
+
+.fy_li li {
+    padding: 0 5px;
+    float: left;
+    list-style: none;
+
+    text-align: center;
+    margin: 0 4px;
+    border: 1px solid #ccc;
+}
+
+.search {
+    background: #87b87f;
+    width: 40px;
+    display: block;
+    height: 29px;
+    float: left;
+    line-height: 29px;
+    text-align: center;
+    color: #fff;
+    padding: 0;
+
+}
+
+.search:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.search:link {
+    color: #fff;
+}
+
+.search:visited {
+    color: #fff;
+}
+
+.widget-toolbar {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 37px;
+    float: none;
+    position: relative;
+}
+
+* {
+    font-family: '微软雅黑';
+}
+
+.page-content {
+    background: #fff;
+    margin: 0;
+    padding: 0 20px 24px;
+}
+
+.widget-toolbar {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 37px;
+    float: none;
+    position: relative;
+}
+
+fieldset {
+    border: none;
+}
+
+.tar {
+    text-align: right;
+}
+
+.search_select_menu {
+    display: block;
+    float: left;
+    margin: 0 0 0 10px;
+}
+
+.sel_date {
+    margin: 0 0 0 15px;
+
+    float: left;
+    line-height: 32px;
+    font-weight: bold;
+}
+
+.search_title {padding:0 15px 0  0;
+    float: left;
+    line-height: 32px;
+    font-weight: bold;
+}
+
+.margin0 {
+    margin: 0;
+}
+
+.fl {
+    float: left;
+}
+
+.clb {
+    clear: both;
+}
+
+.fr {
+    float: right;
+}
+
+.color333 {
+    color: #333;
+}
+
+.color444 {
+    color: #444;
+}
+
+.color555 {
+    color: #555;
+}
+
+.color666 {
+    color: #666;
+}
+.margin01000{
+    margin:0 10px 0 0;
+}.margin01500{
+     margin:0 15px 0 0;
+ }
+.color777 {
+    color: #777;
+}
+
+.color888 {
+    color: #888;
+}
+
+.color999 {
+    color: #999;
+}
+
+.colorf00 {
+    color: #f00;
+}
+
+.colorf60 {
+    color: #f60;
+}
+.font14{
+    font-size:14px;
+}
+.font16{
+    font-size:16px;
+}
+.font17{
+    font-size:17px;
+}
+.font18{
+    font-size:18px;
+}
+.lh30{line-height: 30px;}
+.lh35{line-height: 35px;}
+.lh40{line-height: 40px;}
+.lh20{line-height: 20px;}
+.lh25{line-height: 25px;}
+

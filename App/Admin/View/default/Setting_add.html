@@ -1,0 +1,328 @@
+<include file="common:header"/>
+<body>
+<div class="main-container" id="main-container">
+    <div class="main-container-inner">
+        <div class="main-content">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="widget-box transparent" id="recent-box">
+                            <div class="widget-header">
+                                <div class="widget-toolbar no-border">
+                                    <ul class="nav nav-tabs" id="recent-tab">
+                                        <li><a href="{:U(CONTROLLER_NAME . '/index')}">管理员列表</a></li>
+                                        <if condition="ACTION_NAME eq 'add' ">
+                                            <li class="active"><a href="{:U(CONTROLLER_NAME.'/add')}">添加</a></li>
+                                        </if>
+                                        <if condition="ACTION_NAME eq 'edit' ">
+                                            <li class="active"><a href="{:U(CONTROLLER_NAME.'/edit',array('id'=>$admin1['id'],'par'=>1))}"> {$admin1.account}-编辑</a></li>
+                                        </if>
+                                        <if condition="$sp eq '1' ">
+                                            <li class="active"><a href="{:U(CONTROLLER_NAME.'/setAdminPassword',array('id'=>$admin1['id'],'sp'=>1))}">{$admin1.account}-重置密码</a></li>
+                                        </if>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="main-container" id="main-container">
+                            <script type="text/javascript">
+                                try {
+                                    ace.settings.check('main-container', 'fixed')
+                                } catch (e) {
+                                }
+                            </script>
+                            <div style="">
+
+                                <form role="form" id="form1" method="post" enctype="multipart/form-data" action="">
+                                    <div class="form-group">
+                                        <label class="tar col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">用户账号</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                            <if condition="$sp eq 1"> disabled='disabled'</if>
+                                            data-id="{$admin1.id}" value="{$admin1.account}" type="text" id="account"
+                                            placeholder="请输入账号" name="account" class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="tar col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">用户姓名</label>
+                                        <div class="col-sm-9">
+                                            <input
+                                            <if condition="$sp eq 1"> disabled='disabled'</if>
+                                            value="{$admin1.nickname}" type="text" id="nickname"
+                                            placeholder="请输入姓名" name="nickname" class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                    </div>
+                                    <if condition="$par eq '' ">
+                                        <div class="form-group">
+                                            <label class="tar col-sm-3 control-label no-padding-right"
+                                                   for="form-field-1">登录密码</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" id="password"
+                                                       placeholder="请输入登录密码" name="password"
+                                                       class="col-xs-10 col-sm-5"/>
+                                            </div>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="tar col-sm-3 control-label no-padding-right"
+                                                   for="form-field-1">重复密码</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" id="re_password"
+                                                       placeholder="请输入重复密码" name="re_password"
+                                                       class="col-xs-10 col-sm-5"/>
+                                            </div>
+                                            <div style="clear:both;"></div>
+                                        </div>
+
+                                    </if>
+
+                                    <div class="form-group">
+                                        <label class="tar col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">账号用户组</label>
+                                        <div class="col-sm-9">
+                                            <select
+                                            <if condition="$sp eq 1"> disabled="disabled" style="background:#eee;"</if>
+                                            name="group_id" id="group_id" >
+                                            <option value="">- 请选择 -</option>
+                                            <volist name="grouplist" id="grlist">
+                                                <option
+                                                <if condition="$grlist.id eq $admin1.group_id "> selected = "selected"
+                                                </if>
+                                                value="{$grlist.id}">{$grlist.groupname}</option>
+                                            </volist>
+                                            </select>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="tar col-sm-3 control-label no-padding-right" for="form-field-1">用户状态</label>
+                                        <div class="col-sm-9">
+                                            <select
+                                            <if condition="$sp eq 1"> disabled="disabled" style="background:#eee;"</if>
+                                            name="status" id="status">
+                                            <option value="">- 请选择 -</option>
+                                            <option value="1"
+                                            <if condition="$admin1.status eq '1' "> selected = "selected"</if>
+                                            >正常</option>
+                                            <option value="2"
+                                            <if condition="$admin1.status eq '2' "> selected = "selected"</if>
+                                            >冻结</option>
+                                            <option value="3"
+                                            <if condition="$admin1.status eq '3' "> selected = "selected"</if>
+                                            >删除</option>
+                                            </select>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                    </div>
+                                    <?php if(!empty($nc)){ ?>
+                                        <script>
+                                            $("#status").attr("disabled","disabled");
+                                            $("#group_id").attr("disabled","disabled");
+                                            $("#status").css("background","#eee");
+                                            $("#group_id").css("background","#eee");
+                                        </script>
+                                    <?php } ?>
+                                    <div class="clearfix form-actions">
+                                        <div class="col-md-offset-3 col-md-9">
+
+                                            <if condition="$admin1.id eq '' ">
+                                                <a class="sub_f btn btn-info" href="javascript:$('form').submit()"><i
+                                                        class="icon-ok bigger-110"></i>提交</a>
+                                                <else/>
+                                                <a class="sub_f btn btn-info" href="javascript:$('form').submit()"><i
+                                                        class="icon-ok bigger-110"></i>修改</a>
+                                            </if>
+
+                                            <if condition="$admin1.id eq '' ">
+                                                &nbsp; &nbsp; &nbsp;
+                                                <button class="btn" type="reset">
+                                                    <i class="icon-undo bigger-110"></i>
+                                                    重置
+                                                </button>
+                                            </if>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                    </div>
+                                </form>
+                                <script type="text/javascript">
+                                    $().ready(function () {
+                                        $("#form1").validate({
+                                            rules: {
+                                                nickname: "required",
+                                                status: "required",
+                                                group_id: "required",
+                                                account: {
+                                                    required: true,
+                                                    minlength: 5,
+                                                },
+                                                password: {
+                                                    required: true,
+                                                    minlength: 5,
+                                                },
+                                                re_password: {
+                                                    required: true,
+                                                    minlength: 5,
+                                                    equalTo: "#password"
+                                                },
+                                            },
+                                            messages: {
+                                                group_id: "不能为空",
+                                                nickname: "不能为空",
+                                                status: "不能为空",
+                                                account: {
+                                                    required: "不能为空",
+                                                    minlength: "账号长度不能小于 5 个字母",
+                                                },
+                                                password: {
+                                                    required: "不能为空",
+                                                    minlength: "密码长度不能小于 5 个字母",
+                                                },
+                                                re_password: {
+                                                    required: "不能为空",
+                                                    minlength: "密码长度不能小于 5 个字母",
+                                                    equalTo: "两次密码输入不一致"
+                                                },
+                                            },
+                                            submitHandler: function () {
+                                                <if condition="ACTION_NAME eq 'add' ">addSub();</if>
+                                                <if condition="ACTION_NAME eq 'edit' ">editSub();</if>
+                                                <if condition="$sp eq '1' ">sapSub();</if>
+                                            }
+                                        });
+                                    });
+                                    //修改密码
+                                    function sapSub(){
+                                        var password = $("#password").val();
+                                        var re_password = $("#re_password").val();
+                                        if(password == re_password){
+                                            var id = $("#account").attr('data-id');
+                                            var data = "password=" + password+ "&id=" + id + "&action=password";
+                                           // alert(data);return false;
+                                            $.ajax({
+                                                url: "{:u(CONTROLLER_NAME . '/setAdminPassword')}",
+                                                type: "POST",
+                                                dataType: "json",
+                                                data: data,
+                                                success: function (res) {
+                                                    if(res.result == 'success'){
+                                                        alert("操作成功");
+                                                        location.href="{:u(CONTROLLER_NAME . '/index')}";
+                                                    }else{
+                                                        alert("操作失败，请稍后重试！")
+                                                    }
+                                                }
+                                            });
+                                            return false;
+                                        }else{
+                                            alert('两次密码不符！');
+                                        }
+                                    }
+                                    //提交ajax
+                                    function addSub() {
+                                        var data = "nickname=" + $("#nickname").val() +
+                                                "&account=" + $("#account").val() +
+                                                "&password=" + $("#password").val() +
+                                                "&group_id=" + $("#group_id").val() +
+                                                "&status=" + $("#status").val();
+                                        //alert(data);return false;
+                                        $.ajax({
+                                            url: "{:u(CONTROLLER_NAME . '/add')}",
+                                            type: "POST",
+                                            dataType: "json",
+                                            data: data,
+                                            success: function (res) {
+                                                if (res.resultr == 'error1') {
+                                                    alert('已存在的账户，请重新输入');
+                                                    return false;
+                                                }
+                                                if (res.result == 'success2') {
+                                                    alert("操作成功");
+                                                    location.href = "{:u(CONTROLLER_NAME . '/index')}";
+                                                } else {
+                                                    alert("操作失败")
+                                                    location.reload();
+                                                }
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                    //编辑
+                                    function editSub() {
+                                        // alert($("#status").val());
+                                        var id = $("#account").attr('data-id');
+                                        var par = '';
+                                        var account_r = '{$admin1.account}';
+                                        var account = $("#account").val();
+                                        if (account_r == account) {
+                                            par += '0';
+                                        } else {
+                                            par += '1';
+                                        }
+                                        var status = $("#status").val();
+                                        if (status == 0) {
+                                            alert('请选择用户状态！');
+                                            return false;
+                                        }
+                                        var data = "nickname=" + $("#nickname").val() +
+                                                "&account=" + account +
+                                                "&group_id=" + $("#group_id").val() +
+                                                "&status=" + $("#status").val() + "&par=" + par + "&id=" + id;
+                                        $.ajax({
+                                            url: "{:u(CONTROLLER_NAME . '/edit')}",
+                                            type: "POST",
+                                            dataType: "json",
+                                            data: data,
+                                            success: function (res) {
+                                                if (res.result1 == 'selisarr') {
+                                                    alert("账号已存在，请重新输入！");
+                                                    return false;
+                                                }
+                                                if (res.result == 'err') {
+                                                    alert("未修改任何数据！");
+                                                    // location.reload();
+                                                    return false;
+                                                }
+                                                if (res.result == 'err') {
+                                                    alert("操作失败！");
+                                                    location.reload();
+                                                    return false;
+                                                }
+                                                if (res.result == 'suc') {
+                                                    alert("操作成功");
+                                                    location.href = "{:u(CONTROLLER_NAME . '/index')}";
+                                                    return false;
+                                                }
+                                            }
+                                        });
+                                        return false;
+                                    }
+
+                                </script>
+
+                                <!-- /.main-container-inner -->
+                            </div>
+                        </div>
+                        <!-- /.main-container -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+        <!-- /.main-content -->
+
+    </div>
+    <!-- /.main-container-inner -->
+
+</div>
+<include file="common:footer"/>
+
+
+ 
+
+

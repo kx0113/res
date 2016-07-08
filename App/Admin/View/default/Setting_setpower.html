@@ -1,0 +1,166 @@
+<include file="common:header" />
+<body>
+
+<style>
+	.btn {
+		background-image: none !important;
+		border: medium none;
+		border-radius: 0;
+		box-shadow: none !important;
+		color: #fff !important;
+		cursor: pointer;
+		display: inline-block;
+		margin: 0;
+		position: relative;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+		transition: all 0.15s ease 0s;
+		vertical-align: middle;
+	}
+</style>
+
+<div class="main-container" id="main-container">
+	<div class="main-container-inner">
+		<div class="main-content">
+			<div class="page-content">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="widget-box transparent" id="recent-box">
+							<div class="widget-header">
+								<div class="widget-toolbar no-border">
+									<ul class="nav nav-tabs" id="recent-tab">
+										<li class="active"><a href="">用户组：{$findng.groupname}-设置权限</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<form role="form" id="form1"	method="post" enctype="multipart/form-data" action="{:U('jurisdiction')}">
+							<input type="hidden" value="{$groupid}" name="groupid" />
+							<div class="main-container" id="main-container">
+								<div class="col_main">
+									<div class="module_list">
+										<div style="text-align:left;margin:10px 0 7px 0;">
+											<label><input type="checkbox"  class="chkall">全选</label></div>
+										<volist name="system_module1" id="menu"> <if
+												condition="$menu.pid eq 0">
+											<div class="panel panel-default">
+												<div class="panel-heading" role="tab" id="headingOne">
+													<h4 class="panel-title">
+
+														<input class="boxallv box menu_level_1"  name="checkbox[]"  type="checkbox" id="{$menu.id}" value={$menu.id} <if condition="in_array($menu['id'],$power) eq 'true'">
+														checked
+													</if>
+
+														><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree_{$menu.id}" aria-expanded="false" aria-controls="collapseThree">
+														{$menu.packagename}
+													</a>
+
+													</h4>
+												</div>
+												<div id="collapseThree_{$menu.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+													<div class=" " style="padding:0 15px 15px 15px;">
+														<p style="font-weight :bold;border-bottom:1px solid #ccc;padding:0 0 10px 0;">{$menu.packagename}下的二级菜单</p>
+
+														<volist name="system_module1" id="menusub"> <eq
+																name="menusub.pid" value="$menu.id">
+
+															<div class="">
+																<div style="margin:0 0 0 20px;">
+																	<label><input  name="checkbox[]"  class="box menu_level_2" type="checkbox" id={$menu.id}_{$menusub.id} value="{$menusub.id}"
+																		<if condition="in_array($menusub['id'],$power) eq 'true'">
+																			checked
+																		</if>
+																		>{$menusub.packagename}
+
+																	</label>
+
+																</div>
+
+																<volist name="system_module1" id="menusub3"> <eq
+																		name="menusub3.pid" value="$menusub.id">
+																	<p style="font-weight :bold;border-bottom:1px solid #ccc;padding:0 0 10px 0;margin:0 45px;">{$menu.packagename}下的三级菜单</p>
+																	<div style="margin:0 0 0 40px;">
+																		<div class="menu_level_3">
+																			<div>
+
+																				<label><input type="checkbox" name="checkbox[]" class=" box" id={$menu.id}_{$menusub.id}_{$menusub3.id} value="{$menusub3.id},"
+																					<if condition="in_array($menusub3['id'],$power) eq 'true'">
+																						checked
+																					</if>
+																					>{$menusub3.packagename}
+																				</label>
+																			</div>
+
+																		</div>
+																	</div>
+																</eq> </volist>
+															</div>
+
+														</eq> </volist></div></div>
+											</div>
+										</if> </volist>
+									</div>
+
+									<div class="tool_area">
+										<div class="tool_bar border">
+
+											<a class="sub_f btn btn-info" href="javascript:$('form').submit()" name="on"><i class="icon-ok bigger-110" ></i>提交</a>
+										</div>
+
+									</div>
+								</div>
+
+						</form>
+
+
+
+
+
+						<div class="page-loading-overlay">
+							<div class="loader-2"> </div>
+
+
+
+						</div>
+						<!-- /.main-container-inner -->
+
+					</div>
+					<!-- /.main-container -->
+				</div>
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.page-content -->
+	</div>
+	<!-- /.main-content -->
+
+</div>
+
+<script>
+	$(".chkall").click(function () {
+		var checked = $(this).prop("checked");
+		$('.box').prop("checked",checked);
+	});
+	$(".menu_level_1").click(function(){
+		var checked = $(this).prop("checked");
+		var id = $(this).attr("id");
+		$("input[id^='"+id+"_']").prop("checked",checked);
+
+	})
+	$(".menu_level_2").click(function(){
+		var checked = $(this).prop("checked");
+		var id = $(this).attr("id");
+		$("input[id^='"+id+"_']").prop("checked",checked);
+
+	})
+</script>
+<!-- /.main-container-inner -->
+
+
+</div>
+<include file="common:footer" />
+
+
+ 
+ 
+ 
+  

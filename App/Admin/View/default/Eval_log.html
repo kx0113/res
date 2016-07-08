@@ -1,0 +1,365 @@
+<include file="common:header"/>
+<body>
+
+<style>
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        min-height: 100%;
+        padding: 0;
+    }
+
+    table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+        cursor: pointer;
+        position: inherit;
+    }
+
+    table.dataTable thead .sorting_asc:after {
+        content: none;
+    }
+
+    table.dataTable thead .sorting:after {
+        content: none;
+    }
+    .input-style input{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;
+        background:#f3f3f3;float:left;}
+    .input-style label{float:left;}
+    .nbname_style{margin:4px 14px 0 10px;}
+    .nbname_style1{margin:6px 0px 0 10px;}
+    table.dataTable thead .sorting_desc:after {
+        content: none;
+    }
+</style>
+<script type="text/javascript">
+    $(function(){
+        //设置查询初始时间
+        var start_timer = "{$fdata.start_time}";
+        var end_timer = "{$fdata.end_time}";
+        //设置查询初始时间
+        $('#start_time').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            endDate:end_timer,
+            minView: 2,
+            forceParse: 0,
+            format: 'yyyy-mm-dd',
+        }).on('changeDate', function(ev){
+            var startDate = $('#start_time').val();
+            $('#end_time').datetimepicker('setStartDate', startDate);
+        });
+        $('#end_time').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            startDate:start_timer,
+            forceParse: 0,
+            format: 'yyyy-mm-dd',
+        }).on('changeDate', function(ev){
+            var end_time = $('#end_time').val();
+            $('#start_time').datetimepicker('setEndDate', end_time);
+        });
+    })
+</script>
+<div class="main-container" id="main-container">
+    <div class="main-container-inner">
+        <div class="main-content">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="widget-box transparent" id="recent-box">
+                            <div class="widget-header">
+                                <div class="widget-toolbar no-border">
+                                    <ul class="nav nav-tabs" id="recent-tab">
+                                        <li class="active"><a style="content:'111';"
+                                                              href="{:U('eval/log')}">登录日志</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="main-container" id="main-container">
+                            <script type="text/javascript">
+                                try {
+                                    ace.settings.check('main-container', 'fixed')
+                                } catch (e) {
+                                }
+                            </script>
+
+
+                            <div class="main-container-inner"><a class="menu-toggler" id="menu-toggler" href="#"> <span
+                                    class="menu-text"></span> </a>
+
+                                <div class="row">
+                                    <form class="form-horizontal" role="form"  id="form1" enctype="multipart/form-data" action="" method="get">
+                                        <div><div><!--{$fdata['start_time']}-->
+                                            <label class="nbname_style1" style="float:left;">起始日期</label>
+                                            <div class="col-sm-3">
+                                                <div style="padding:0;" class="input-group date start_time " data-date=""
+                                                     data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+                                                     data-link-format="yyyy-mm-dd"
+
+                                                >
+                                                    <input class="form-control " id='start_time' placeholder="请选择起始日期"
+                                                           size="16" type="text" name="start_time"
+                                                    <if condition="$fdata.start_time neq '' ">
+                                                        value="{$fdata.start_time}"
+                                                    </if>
+                                                    >
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-calendar"></span></span>
+                                                </div>
+                                            </div>
+                                            <label class="nbname_style1" style="float:left;">结束日期</label>
+                                            <div class="col-sm-3">
+                                                <div style="padding:0;" class="input-group date end_time " data-date=""
+                                                     data-date-format="yyyy-mm-dd" data-link-field="dtp_input2"
+                                                     data-link-format="yyyy-mm-dd">
+                                                    <input class="form-control " id="end_time" placeholder="请选择结束日期"
+                                                           size="16" type="text" name="end_time"
+                                                    <if condition="$fdata.end_time neq '' ">
+                                                        value="{$fdata.end_time}"
+                                                    </if>
+                                                    >
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span
+            class="glyphicon glyphicon-calendar"></span></span>
+                                                </div>
+                                            </div>  <a class="search" href="javascript:$('form').submit()">查询</a>
+                                            <div style="clear: both;"> </div>
+                                            <div style="width:100%;float:left;margin:0 0 20px 0;" class="input-style">
+
+
+                                              </div>
+
+                                    </form>
+                                    <div class="col-xs-12">
+                                        <!-- PAGE CONTENT BEGINS -->
+
+                                          <div class="table-responsive">
+                                          <table id="sample-table-1"
+                                             class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                              <tr>
+                                                  <td>操作人账号</td>
+                                                  <td>操作人姓名</td>
+                                                  <td>行为 </td>
+                                                  <td class="hidden-480">时间</td>
+                                                  <td>IP</td>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            <volist name="list" id="vo">
+                                                <tr>
+                                                    <td>{$vo.user_id|readUserAccount=###}</td>
+                                                    <td>{$vo.user_id|readUser=###}</td>
+                                                    <td>{$vo.operation}</td>
+                                                    <td class="hidden-480">
+                                                        {$vo.time|date="Y-m-d H:i:s",###}
+                                                    </td>
+                                                    <td><a href="http://ip138.com/ips138.asp?ip={$vo.ip}&action=2">{$vo.ip}</a></td>
+                                                   <!-- <td><if condition="$vo.status eq 1">成功<else />失败</if></td>-->
+
+
+                                                    <!-- <switch name="vo.is_login">
+                                                     <case value="0"> <font style="color:#f00;">用户主动退出</font></case>
+                                                     <case value="1" >用户登录</case>
+                                                       <case value="2"><font style="color:blue;">系统超时</font></case>
+                                                          <default />系统超时
+                                                          </switch>	 -->
+                                                    <!-- <if condition="$vo.is_login eq 1 ">
+                                                    登录
+                                                      <else /><font style="color:#f00;">登出</font>
+                                                    </if> -->
+                                                    </td>
+                                                </tr>
+                                            </volist>
+                                            </tbody>
+                                          </table>
+
+                                          <p style="text-align: center; color: #ccc;">{$not_found}</p>
+                                          <ul style="" class="fy_li">
+                                            {$page}
+                                          </ul>
+                                        </div>
+
+
+                                        <script type="text/javascript">
+                                            $(document).ready(function () {
+                                                //$(".pagination > .prev > a").text('22');
+
+
+
+                                                $('table th input:checkbox').on('click', function () {
+                                                    var that = this;
+                                                    $(this).closest('table').find('tr > td:first-child input:checkbox')
+                                                            .each(function () {
+                                                                this.checked = that.checked;
+                                                                $(this).closest('tr').toggleClass('selected');
+                                                            });
+
+                                                });
+
+
+                                                $('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+                                                function tooltip_placement(context, source) {
+                                                    var $source = $(source);
+                                                    var $parent = $source.closest('table')
+                                                    var off1 = $parent.offset();
+                                                    var w1 = $parent.width();
+
+                                                    var off2 = $source.offset();
+                                                    var w2 = $source.width();
+
+                                                    if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+                                                    return 'left';
+                                                }
+                                            })
+                                        </script>
+                                        <!-- /.table-responsive -->
+
+                                        <script type="text/javascript">
+                                            $('.search').click(function () {
+                                                var name = $('#name').val();
+                                                if (name == "") {
+                                                    alert('请输入您要搜索的数据！');
+                                                    $('#name').focus();
+                                                    return false;
+                                                }
+                                            });
+                                            $(".chkall").click(function () {
+                                                var checked = $(this).prop("checked");
+                                                $('.box').prop("checked", checked);
+                                            });
+                                            $(".all_val").click(function () {
+                                                var list = new Array();
+                                                $("input[id='style_val']:checked").each(
+                                                        function () {
+                                                            list.push($(this).val());
+                                                        });
+                                                if (list == '') {
+                                                    alert('请选择您要删除的数据！');
+                                                    return false;
+                                                }
+                                                var data = "list=" + list.join(',');
+
+                                                $.ajax({
+                                                    url: "{:u(CONTROLLER_NAME . '/previous_delete')}",
+                                                    type: "POST",
+                                                    dataType: "json",
+                                                    data: data,
+                                                    success: function (res) {
+                                                        if (res.result == 'success1') {
+                                                            alert("操作成功");
+                                                            location.reload()
+                                                            // location.href="{:u('/home/index/cc')}"
+                                                        } else {
+                                                            alert("操作失败");
+                                                        }
+
+                                                    }
+                                                });
+
+                                            });
+                                            function selectall(name) {
+                                                if ($("#check_box").attr("checked") == 'checked') {
+                                                    $("input[name='" + name + "']").each(function () {
+                                                        $(this).attr("checked", "checked");
+
+                                                    });
+                                                } else {
+                                                    $("input[name='" + name + "']").each(function () {
+                                                        $(this).removeAttr("checked");
+                                                    });
+                                                }
+                                            }
+
+                                            $('.del').click(function () {
+                                                var id = $(this).attr('data-id');
+                                                $('.del_id').attr('data-cid', id);
+                                            });
+                                            $('.del_id').click(function () {
+                                                var id = $(this).attr('data-cid');
+                                                $.ajax({
+                                                    url: "{:u(CONTROLLER_NAME . '/previous_delete')}",
+                                                    type: "POST",
+                                                    dataType: "json",
+                                                    data: $(".form-horizontal").serialize() + "&id=" + id,
+                                                    success: function (res) {
+                                                        if (res.result == 'success') {
+                                                            //alert("操作成功");
+                                                            location.reload()
+                                                            // location.href="{:u('/home/index/cc')}"
+                                                        } else {
+                                                            alert("操作失败");
+                                                        }
+
+                                                    }
+                                                });
+                                                // $('.del_id').attr('data-cid',id);
+                                            });
+
+                                            function show_change(id) {
+
+                                                var show = document.getElementById("show_" + id).checked == true ? '1' : '0';
+
+                                                $.ajax({
+                                                    url: "{:U(CONTROLLER_NAME . '/show_change')}", // 表单提交的地址
+                                                    type: 'POST',
+                                                    dataType: 'json',
+                                                    data: 'id=' + id + '&status=' + show, // 表单提交的数据
+                                                    success: function (res) {
+                                                    }
+                                                });
+                                            }
+
+
+                                            $('table th input:checkbox').on('click', function () {
+                                                var that = this;
+                                                $(this).closest('table').find('tr > td:first-child input:checkbox')
+                                                        .each(function () {
+                                                            this.checked = that.checked;
+                                                            $(this).closest('tr').toggleClass('selected');
+                                                        });
+
+                                            });
+
+
+                                        </script>
+
+                                        <!-- PAGE CONTENT ENDS -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                            </div>
+                            <!-- /.main-container-inner -->
+
+                        </div>
+                        <!-- /.main-container -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+        <!-- /.main-content -->
+
+    </div>
+    <!-- /.main-container-inner -->
+
+     </div>
+<include file="common:footer"/>

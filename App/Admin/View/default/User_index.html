@@ -1,0 +1,97 @@
+<include file="ncommon:header" />
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>列表</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">选项1</a>
+                    </li>
+                </ul>
+                <a class="close-link" href="javascript:location.reload();">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+
+                    <div class="example-wrap">
+                        <div class="example">
+                            <table data-toggle="table" data-url="" data-mobile-responsive="true">
+                                <thead>
+                                <tr>
+                                    <th >ID</th>
+                                    <th >名称</th>
+                                    <th>所属部门</th>
+                                    <th >职位名称</th>
+                                    <th >正式入职时间</th>
+                                    <th >试用期工资</th>
+                                    <th >转正时间</th>
+                                    <th >转正工资</th>
+                                    <th >保险待遇</th>
+                                    <th >离职时间</th>
+                                    <th >创建时间</th>
+                                    <th >创建用户</th>
+                                    <th >操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="vo">
+                                    <tr>
+                                        <td >{$vo.id}</td>
+                                        <td >{$vo.name}</td>
+                                        <td >{$vo.section}</td>
+                                        <td >{$vo.position}</td>
+                                        <td ><if condition="!empty($vo['entry_time'])">{$vo.entry_time|date="Y-m-d",###}<else />
+                                            无</if></td>
+                                        <td >{$vo.salary_a}</td>
+                                        <td ><if condition="!empty($vo['become_time'])">{$vo.become_time|date="Y-m-d",###}<else />
+                                            无</if></td>
+                                        <td >{$vo.salary_b}</td>
+                                        <td >{$vo.salary_c}</td>
+                                        <td ><if condition="!empty($vo['dimission_time'])">{$vo.dimission_time|date="Y-m-d",###}<else />无</if></td>
+                                        <td >{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+                                        <td>{$vo.add_user|readUser=###}</td>
+                                        <td >
+                                            <a href="{:U(CONTROLLER_NAME . '/editData',array('id'=>$vo['id']))}">[编辑]</a>
+                                            <a onclick="saveStatus_D({$vo.id},0,'确定要删除？');" href="javascript:void(0);">[删除]</a>
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                            <ul class="fy_li">{$page}</ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //单条数据删除
+    function saveStatus_D(id,status,msg){
+        var data = "id="+id+"&par=index&status="+status;
+        if(confirm(msg)) {
+            AjaxSubmit('delete_data', data,1);
+        }
+        return false;
+    }
+</script>
+<include file="ncommon:footer" />
+</body>
+</html>

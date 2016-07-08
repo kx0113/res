@@ -1,0 +1,263 @@
+<include file="ncommon:header" />
+<link href="__PUBLIC__/Admin/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>列表<a style="margin: 0 0 0 10px;" href="{:U(CONTROLLER_NAME . '/add',array('par'=>$par))}">[创建]</a></h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">选项1</a>
+                    </li>
+
+                </ul>
+
+                <a class="close-link" href="javascript:location.reload();">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <form class="form-horizontal" role="form"  id="form1" enctype="multipart/form-data" action="" method="get">
+                        <div class="form-group" id="data_5">
+                            <p class="search_title" style="margin: 0 0 0 15px;">选择时间</p>
+                            <div class="fl input-daterange input-group" id="datepicker">
+                            <input type="text" class=" form-control" name="start_time" value="{$fdata.start_time}" />
+                            <span class="input-group-addon">到</span>
+                            <input type="text" class=" form-control" name="end_time" value="{$fdata.end_time}" />
+                            <div class="clb"></div>
+                        </div>
+                        </div>
+
+                        <div class="fl margin0 margin01500">
+                            <p class="search_title">{$tit.gc_id3}</p>
+                            <p class="fl margin0">
+                                <select class="form-control" name="gc_id3" required aria-required="true">
+                                    <option value="">- 请选择 -</option>
+                                    <foreach name="goodsclass.class3" item="class3">
+                                        <option <if condition="$fdata['gc_id3'] eq $class3['id']">selected="selected"</if>value="{$class3.id}" >{$class3.name}</option>
+                                    </foreach>
+                                </select>
+                            </p>
+                            <div class="clb"></div>
+                        </div>
+
+                        <div class="fl margin0 margin01500">
+                            <p class="search_title">{$tit.gc_id6}</p>
+                            <p class="fl margin0">
+                                <select class="form-control" name="gc_id6" required aria-required="true">
+                                    <option value="">- 请选择 -</option>
+                                    <foreach name="goodsclass.class6" item="class6">
+                                        <option <if condition="$fdata['gc_id6'] eq $class6['id']">selected="selected"</if>value="{$class6.id}" >{$class6.name}</option>
+                                    </foreach>
+                                </select>
+                            </p>
+                            <div class="clb"></div>
+                        </div>
+
+                        <if condition="$par eq 1">
+                        <div class="fl margin0 margin01500">
+                            <p class="search_title">{$tit.gc_id2}</p>
+                            <p class="fl margin0">
+                                <select class="form-control" name="gc_id2" required aria-required="true">
+                                    <option value="">- 请选择 -</option>
+                                    <foreach name="goodsclass.class2" item="class2">
+                                        <option <if condition="$fdata['gc_id2'] eq $class2['id']">selected="selected"</if>value="{$class2.id}" >{$class2.name}</option>
+                                    </foreach>
+                                </select>
+                            </p>
+                            <div class="clb"></div>
+                        </div>
+                        </if>
+
+                        <div class="fl margin0 margin01500">
+                            <p class="search_title">{$tit.gc_id1}</p>
+                            <p class="fl margin0">
+                                <select class="form-control" name="gc_id1" required aria-required="true">
+                                    <option value="">- 请选择 -</option>
+                                    <foreach name="goodsclass.class1" item="class1">
+                                        <option <if condition="$fdata['gc_id1'] eq $class1['id']">selected="selected"</if>value="{$class1.id}" >{$class1.name}</option>
+                                    </foreach>
+                                </select>
+                            </p>
+                            <div class="clb"></div>
+                        </div>
+
+                        <div class="clb"></div>
+                        <div style="margin:7px 0 0  0;">
+                            <div  class=" margin0 fl  margin01500">
+                                <p class="search_title">{$tit.name}</p>
+                                <p class="fl margin0">
+                                    <input type="text" class=" form-control " name="name" value="{$fdata.name}" />
+                                </p>
+                                <div class="clb"></div>
+                            </div>
+                            <div  class=" margin0 fl  margin01500">
+                                <p class="search_title">{$tit.num}</p>
+                                <p class="fl margin0">
+                                    <input type="text" class=" form-control " name="num" value="{$fdata.num}" />
+                                </p>
+                                <div class="clb"></div>
+                            </div>
+                            <div  class=" margin0 fl  margin01500">
+                                <p class="search_title">{$tit.remark}</p>
+                                <p class="fl margin0">
+                                    <input type="text" class=" form-control " name="remark" value="{$fdata.remark}" />
+                                </p>
+                                <div class="clb"></div>
+                            </div>
+                            <a href="javascript:$('form').submit();" class="btn btn-primary">查询</a>
+                            <a href="javascript:location.reload();" class="btn btn-danger">重置</a>
+                        </div>
+                        <div class="clb"></div>
+                    </form><br>
+                    <a href="/res/Public/enter.xls" class="btn btn-sm  btn-danger">下载Excel模版</a>
+                    <a id="" class="btn btn-sm btn-primary onlay">导入Excel</a><br><br>
+                    <script>
+                        $(function () {
+                            $(".onlay").click(function(){
+                                layer.open({
+                                    type: 2,
+                                    title: '导入Excel',
+                                    shadeClose: true,
+                                    shade: false,
+                                    scrollbar:false,
+                                    moveType:0,
+                                    maxmin: false, //开启最大化最小化按钮
+                                    area: ['400px', '400px'],
+                                    content: '{:U("Res/Eimport")}'
+                                });
+                            });
+                        });
+                    </script>
+                    <div class="alert alert-info">
+                        <span>通过下列查询条件：</span><br>
+                        <span>[起始时间：{$fdata.start_time}]</span>
+                        <span>-&nbsp;[结束时间：{$fdata.end_time}]</span><br>
+                        <if condition="!empty($fdata['gc_id3'])">
+                            <span>[{$tit.name}：{$fdata.gc_id3|getGoodsClassName=###}] </span><br>
+                        </if>
+                        <if condition="!empty($fdata['gc_id6'])">
+                            <span>[{$tit.gc_id6}：{$fdata.gc_id6|getGoodsClassName=###}] </span><br>
+                        </if>
+                        <if condition="!empty($fdata['gc_id2'])">
+                            <span>[{$tit.gc_id2}：{$fdata.gc_id2|getGoodsClassName=###}] </span><br>
+                        </if>
+                        <if condition="!empty($fdata['gc_id1'])">
+                            <span>[{$tit.gc_id1}：{$fdata.gc_id1|getGoodsClassName=###}] </span><br>
+                        </if>
+                        <if condition="!empty($fdata['name'])">
+                            <span>[{$tit.name}：{$fdata.name}] </span><br>
+                        </if>
+                        <if condition="!empty($fdata['num'])">
+                            <span>[{$tit.num}：{$fdata.num}] </span><br>
+                        </if>
+                        <if condition="!empty($fdata['remark'])">
+                            <span>[{$tit.remark}：{$fdata.remark}] </span><br>
+                        </if>
+
+                      <span>金额总数：<b>{$allgetnumm}</b></span><br>
+                  <strong>{$allcount}</strong>    <span>条数据</span>
+                    </div>
+
+                    <!-- Example Cellstyle -->
+                    <div class="example-wrap">
+                        <div class="example">
+                            <table data-toggle="table" data-url="" data-mobile-responsive="true">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{$tit.name}</th>
+                                    <th>{$tit.num}</th>
+                                    <eq name="show['gc_id3']" value="gc_id3"><th>{$tit.gc_id3}</th></eq>
+                                    <eq name="show['gc_id6']" value="gc_id6"><th>{$tit.gc_id6}</th></eq>
+                                    <eq name="show['gc_id1']" value="gc_id1"><th>{$tit.gc_id1}</th></eq>
+                                    <eq name="show['gc_id2']" value="gc_id2"><th>{$tit.gc_id2}</th></eq>
+                                    <eq name="show['gc_id4']" value="gc_id4"><th>{$tit.gc_id4}</th></eq>
+                                    <eq name="show['gc_id5']" value="gc_id5"><th>{$tit.gc_id5}</th></eq>
+                                    <th>{$tit.sub_time}</th>
+                                    <th>{$tit.add_time}</th>
+                                    <th>{$tit.add_user}</th>
+                                    <th>区分</th>
+                                    <th>{$tit.operation}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="vo">
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.num}</td>
+                            <eq name="show['gc_id3']" value="gc_id3"><td>{$vo.gc_id3|getGoodsClassName=###}</td></eq>
+                            <eq name="show['gc_id6']" value="gc_id6"><td>{$vo.gc_id6|getGoodsClassName=###}</td></eq>
+                            <eq name="show['gc_id1']" value="gc_id1"><td>{$vo.gc_id1|getGoodsClassName=###}</td></eq>
+                            <eq name="show['gc_id2']" value="gc_id2"><td>{$vo.gc_id2|getGoodsClassName=###}</td></eq>
+                            <eq name="show['gc_id4']" value="gc_id4"><td>{$vo.gc_id4|getGoodsClassName=###}</td></eq>
+                            <eq name="show['gc_id5']" value="gc_id5"><td>{$vo.gc_id5|getGoodsClassName=###}</td></eq>
+                            <td>{$vo.sub_time|date="Y-m-d",###}</td>
+                            <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+                            <td>{$vo.add_user|readUser=###}</td>
+                            <td>
+                                <select onchange="changis_m({$vo.id},this,'确定要修改？')">
+                                    <option value="0">未选择</option>
+                                    <option <if condition="$vo.is_bm eq 1">selected = "selected"</if> value="1">B</option>
+                                    <option <if condition="$vo.is_bm eq 2">selected = "selected"</if> value="2">M</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a href="{:U(CONTROLLER_NAME . '/edit',array('par'=>$par,'id'=>$vo['id']))}">[编辑]</a>
+                             <!--   <a onclick="saveStatus_D({$vo.id},0,'确定要删除？');" href="javascript:void(0);">[删除]</a>-->
+                            </td>
+                        </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                            <ul  class="fy_li">
+                                {$page}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Example Cellstyle -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function changis_m(id,obj,msg){
+        var i = $(obj).val();
+        var data = "id="+id+"&par=is_bm&status="+i;
+        if(confirm(msg)) {
+            AjaxSubmit('delete_data', data,1);
+        }
+        return false;
+        //alert(i);
+    }
+    //单条数据删除
+    function saveStatus_D(id,status,msg){
+        var data = "id="+id+"&par=index&status="+status;
+        if(confirm(msg)) {
+            AjaxSubmit('delete_data', data,1);
+        }
+        return false;
+    }
+</script>
+<include file="ncommon:footer" />
+<script src="__PUBLIC__/Admin/hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/cropper/cropper.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/demo/form-advanced-demo.min.js"></script>
+</body>
+</html>

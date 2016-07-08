@@ -1,0 +1,93 @@
+<include file="common:header" />
+<body>
+ <style>
+.main-content {
+  margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    min-height: 100%;
+    padding: 0;
+}
+</style>
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <div class="main-content">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="widget-box transparent" id="recent-box">
+              <div class="widget-header">
+                <div class="widget-toolbar no-border">
+                  <ul class="nav nav-tabs" id="recent-tab">
+                      <li class="active">
+                          <a href="{:U(CONTROLLER_NAME . '/headimg')}">员工照片</a>
+                      </li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <div class="main-container" id="main-container"> 
+              <script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+              <div>
+
+              </div>
+
+              <div class="main-container-inner">
+                <div class="row">
+                    <style>
+                        .userImg{}
+                        .userImg li{margin:0 10px 10px 0;float: left;
+                            box-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+                            list-style: none;border:1px solid #ccc;
+                            padding:4px 4px 0 4px;}
+                        .userImg li img{}
+                        .userImg li:hover{border:1px solid #f60;}
+                        .userImg li a:hover{ text-decoration: inherit;color:#f60}
+                        .userImg li a span{display: block;margin:5px 0;}
+                        .userImg li a{color:#333;}
+                    </style>
+                  <div class="">
+                  <ul class="userImg">
+                      <volist name="list" id="vo">
+                          <li class=" ">
+                              <a href="{:u('User/look',array('id'=>$vo['user_id'],'par'=>2,'look'=>'true'))}">
+                              <img src="{$userheadpath}{$vo.head}" width=" 150" height="180" />
+                              <span>姓名：{$vo.user_id|readUserName=###}</span>
+                              </a>
+                          </li>
+
+                      </volist>
+
+<div style="clear: both"></div>
+                  </ul>
+                      <ul class="fy_li">
+                          {$page}
+                      </ul>
+                  </div>
+                  <!-- /.col --> 
+                </div>
+                <!-- /.row --> 
+                
+              </div>
+              <!-- /.main-container-inner --> 
+              
+            </div>
+            <!-- /.main-container --> 
+          </div>
+        </div>
+        <!-- /.row --> 
+      </div>
+      <!-- /.page-content --> 
+    </div>
+    <!-- /.main-content --> 
+    
+  </div>
+  <!-- /.main-container-inner --> 
+  
+    </div>
+<include file="common:footer" />

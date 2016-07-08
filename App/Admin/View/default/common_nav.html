@@ -1,0 +1,107 @@
+<div class="sidebar" id="sidebar">
+    <script type="text/javascript">
+        try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+    </script>
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn laprompt btn-success">
+                <i class="icon-signal"></i>
+            </button>
+
+            <button class="btn laprompt btn-info">
+                <i class="icon-pencil"></i>
+            </button>
+
+            <button class="btn laprompt btn-warning">
+                <i class="icon-group"></i>
+            </button>
+
+            <button class="btn laprompt btn-danger">
+                <i class=" icon-trash"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('.laprompt').click(function(){
+                //prompt层
+                layer.msg('玩命提示中，到底该放些什么呢。');
+            })
+
+            var offsetHeight = document.body.offsetHeight;
+            var offsetHeightr = offsetHeight-200;
+           // alert(offsetHeight);
+            $('#slimtest2').slimScroll({
+                position: 'right',
+                height: offsetHeightr,
+                size: '1px',
+                color: '#fff',
+                alwaysVisible: true,
+                distance: '0',
+
+            });
+        })
+    </script>
+<ul class="nav nav-list" id='slimtest2' style=" height:auto;">
+<volist name="system_menu" id="menu"> 
+    <if condition="$menu.parent eq 0">
+    <li class="menuli_{$menu.id}" data-num="0" onclick="menuliHover({$menu.id});">
+        <a href=""  class="dropdown-toggle" data-value="{$menu.id}">
+            <i class="{$menu.icon}"></i>
+            <span class="title">{$menu.name}</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>
+    	<ul class="submenu a_{$menu.id}">
+        <volist name="system_menu" id="menusub"> 
+        <eq name="menusub.parent" value="$menu.id">
+        <li class="menusub_li_{$menusub.id}">
+            <a onClick="showHover({$menusub.id},{$menu.id});" data-sub="0" href="{:u($menusub['path'])}" target="main"  data-value="{$menusub.id}">
+          		  <i class="icon-double-angle-right {$menusub.icon}"></i>
+               {$menusub.name} 
+            </a>
+            <!--ul>
+	            <volist name="system_menu" id="menusub1"> 
+			        <eq name="menusub1.parent" value="$menusub.id">
+				        <li>
+				        	<a href="{:u($menusub1['path'])}" target="main"  data-value="{$menusub1.id}">
+				          		  <i class="icon-double-angle-right {$menusub1.icon}"></i>
+				               {$menusub1.name} 
+				            </a>
+				        </li>
+			        </eq>
+		        </volist> 
+	        </ul-->
+        </li>
+        </eq> 
+        </volist>
+        </ul>
+     </li>
+    </if>  
+</volist>
+
+</ul>
+					<script>
+                        $(".nav-list > li:first").addClass('active open');
+                        $(".nav-list > li > ul > li:first").addClass('active ');
+
+                        function menuliHover(obj){
+
+                        }
+                       function showHover(obj,pid){
+                           $('.nav-list > li').removeClass('active');
+                           $(".menuli_"+pid).addClass('active');
+                           $(".submenu > li").removeClass('active');
+                          $('.menusub_li_'+obj).addClass('active');
+                       }
+                    </script>
+				</div>

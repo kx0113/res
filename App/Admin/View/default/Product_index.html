@@ -1,0 +1,97 @@
+<include file="ncommon:header" />
+<script src='__PUBLIC__/js/echarts.js'></script>
+<link href="__PUBLIC__/Admin/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="">选项1</a>
+                            </li>
+                            <li><a href="">选项2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+
+                    <div id="main" style="width: 100%;height:600px;"></div>
+                    <script>
+                        var myChart = echarts.init(document.getElementById('main'));
+                        option = {
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b}: {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                x: 'left',
+                                data:[<volist name="list" id="vo">'{$vo.name}',</volist>]
+                            },
+                            series: [
+                                {
+                                    name:'个人统计',
+                                    type:'pie',
+                                    selectedMode: 'single',
+                                    radius: [0, '30%'],
+
+                                    label: {
+                                        normal: {
+                                            position: 'inner'
+                                        }
+                                    },
+                                    labelLine: {
+                                        normal: {
+                                            show: false
+                                        }
+                                    },
+                                    data:[
+                                    <volist name="list1" id="v1">{value:'{$v1.num}',name:'{$v1.name}'<if condition="$v1.gc eq 107">,selected:true</if>},</volist>
+                                      //  {value:335, name:'直达', selected:true},
+                                      //  {value:335, name:'直达', selected:true},
+                                      //  {value:679, name:'营销广告'},
+                                     //   {value:1548, name:'搜索引擎'}
+                                    ]
+                                },
+                                {
+                                    name:'用途统计',
+                                    type:'pie',
+                                    radius: ['40%', '55%'],
+                                    data:[
+                                    <volist name="list" id="v">{value:'{$v.num}',name:'{$v.name}'<if condition="$v.gc eq 119">,selected:true</if>},</volist>
+//                        {value:335, name:'直达',selected:true},
+                                    ]
+                                }
+                            ]
+                        };
+                        myChart.setOption(option);
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="ncommon:footer" />
+<script src="__PUBLIC__/Admin/hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/plugins/cropper/cropper.min.js"></script>
+<script src="__PUBLIC__/Admin/hplus/js/demo/form-advanced-demo.min.js"></script>
+</body>
+</html>
